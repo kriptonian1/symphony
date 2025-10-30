@@ -1,0 +1,11 @@
+name: Portfolio Test
+url: https://kriptonian.xyz/
+
+flow:
+    - scroll:
+          direction: down
+    - scroll:
+          direction: down
+    - clickOn: Resume
+    - waitFor:
+          duration: 5000

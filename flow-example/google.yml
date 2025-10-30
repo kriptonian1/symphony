@@ -1,0 +1,14 @@
+name: Google Test
+url: https://www.google.com/
+colorMode: dark
+
+flow:
+    - input:
+          selector: 'textarea[title="Search"]'
+          value: "Keyshade"
+    - waitFor:
+          duration: 3000
+    - keyboard:
+          key: Enter
+    - waitFor:
+          duration: 5000

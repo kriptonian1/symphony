@@ -1,0 +1,16 @@
+import { spinner } from "@clack/prompts";
+import { WaitForAction } from "@type/workflowConfig.types";
+import chalk from "chalk";
+import { Page } from "playwright";
+
+export default async function waitforExecutionFlow(
+    waitforStep: WaitForAction,
+    page: Page
+): Promise<void> {
+    const waitForSpinner = spinner();
+    waitForSpinner.start(`Waiting for: ${waitforStep.waitFor.duration}ms`);
+    await page.waitForTimeout(waitforStep.waitFor.duration);
+    waitForSpinner.stop(
+        `${chalk.green("✓")} Waited for: ${waitforStep.waitFor.duration}ms`
+    );
+}

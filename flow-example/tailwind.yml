@@ -1,0 +1,29 @@
+name: Tailwind CSS Test
+url: https://tailwindcss.com/
+colorMode: dark
+
+flow:
+    - scroll:
+          direction: down
+          speed: 100
+    - waitFor:
+          duration: 3000
+    - keyboard:
+          key: ControlOrMeta+k
+    - input:
+          selector: "placeholder:Search documentation"
+          value: "padding"
+    - waitFor:
+          duration: 5000
+    - keyboard:
+          key: Enter
+    - clickOn: Show more
+    - scroll:
+          direction: down
+    - waitFor:
+          duration: 3000
+    - clickOn: Blog
+    - scroll:
+          direction: down
+    - waitFor:
+          duration: 5000
