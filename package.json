@@ -5,7 +5,8 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "build": "bun build src/index.ts --target=bun --outfile=dist/index.js --minify",
+        "build": "bun build src/index.ts --target=bun --outfile=dist/index.js --minify --external=playwright --external=electron",
+        "build:exe": "bun build src/index.ts --compile --outfile build/symphony --external=playwright --external=electron --minify",
         "start": "bun run src/index.ts"
     },
     "keywords": [],
