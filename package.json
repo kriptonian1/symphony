@@ -9,7 +9,7 @@
 		"build:exe": "bun build src/index.ts --compile --outfile build/symphony --external=playwright --external=electron --minify",
 		"start": "bun run src/index.ts",
 		"format-lint": "bunx biome check --write",
-        "format-lint:check": "bunx biome check"
+		"format-lint:check": "bunx biome check"
 	},
 	"keywords": [],
 	"author": "",
