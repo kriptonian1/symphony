@@ -1,4 +1,5 @@
 import { spinner } from "@clack/prompts";
+import type { Role } from "@type/role.types";
 import type { InputAction } from "@type/workflowConfig.types";
 import chalk from "chalk";
 import type { Page } from "playwright";
@@ -45,7 +46,7 @@ export default async function inputExecutionFlow(
 		const [role, ...nameParts] = roleAndName.split(" ");
 		const name = nameParts.join(" ").replace('name="', "").replace('"', "");
 		await page
-			.getByRole(role as any, { name })
+			.getByRole(role as Role, { name })
 			.fill(inputStep.input.value)
 			.then(() => {
 				inputSpinner.stop(
