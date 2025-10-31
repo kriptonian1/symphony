@@ -3,13 +3,17 @@
 	"version": "1.0.0",
 	"description": "",
 	"main": "index.js",
+	"lint-staged": {
+		"*.{ts,js,json,yml}": "biome check --no-errors-on-unmatched --files-ignore-unknown=true"
+	},
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"build": "bun build src/index.ts --target=bun --outfile=dist/index.js --minify --external=playwright --external=electron",
 		"build:exe": "bun build src/index.ts --compile --outfile build/symphony --external=playwright --external=electron --minify",
 		"start": "bun run src/index.ts",
 		"format-lint": "bunx biome check --write",
-		"format-lint:check": "bunx biome check"
+		"format-lint:check": "bunx biome check",
+		"prepare": "husky"
 	},
 	"keywords": [],
 	"author": "",
@@ -25,8 +29,12 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.3.2",
+		"@commitlint/cli": "^20.1.0",
+		"@commitlint/config-conventional": "^20.0.0",
 		"@types/js-yaml": "^4.0.9",
 		"@types/node": "^24.7.2",
+		"husky": "^9.1.7",
+		"lint-staged": "^16.2.6",
 		"typescript": "^5.9.3"
 	}
 }
