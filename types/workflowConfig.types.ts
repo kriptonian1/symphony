@@ -1,56 +1,56 @@
 import z from "zod";
 
 export const InputActionSchema = z.object({
-    input: z.object({
-        selector: z.string(),
-        value: z.string(),
-    }),
+	input: z.object({
+		selector: z.string(),
+		value: z.string(),
+	}),
 });
 
 export const ClickActionSchema = z.object({
-    clickOn: z.union([
-        z.object({
-            selector: z.string(),
-        }),
-        z.string(),
-    ]),
+	clickOn: z.union([
+		z.object({
+			selector: z.string(),
+		}),
+		z.string(),
+	]),
 });
 
 export const WaitForActionSchema = z.object({
-    waitFor: z.object({
-        duration: z.number(),
-    }),
+	waitFor: z.object({
+		duration: z.number(),
+	}),
 });
 
 export const KeyboardActionSchema = z.object({
-    keyboard: z.object({
-        key: z.string(),
-    }),
+	keyboard: z.object({
+		key: z.string(),
+	}),
 });
 
 export const ScrollActionSchema = z.object({
-    scroll: z.union([
-        z.object({
-            direction: z.enum(["up", "down"]),
-            speed: z.number().optional(),
-        }),
-        z.object({ position: z.object({ x: z.number(), y: z.number() }) }),
-    ]),
+	scroll: z.union([
+		z.object({
+			direction: z.enum(["up", "down"]),
+			speed: z.number().optional(),
+		}),
+		z.object({ position: z.object({ x: z.number(), y: z.number() }) }),
+	]),
 });
 
 export const FlowStepSchema = z.union([
-    InputActionSchema,
-    ClickActionSchema,
-    WaitForActionSchema,
-    KeyboardActionSchema,
-    ScrollActionSchema,
+	InputActionSchema,
+	ClickActionSchema,
+	WaitForActionSchema,
+	KeyboardActionSchema,
+	ScrollActionSchema,
 ]);
 
 export const WorkflowConfigSchema = z.object({
-    name: z.string(),
-    url: z.url(),
-    colorMode: z.enum(["light", "dark"]).optional(),
-    flow: z.array(FlowStepSchema),
+	name: z.string(),
+	url: z.url(),
+	colorMode: z.enum(["light", "dark"]).optional(),
+	flow: z.array(FlowStepSchema),
 });
 
 export type WorkflowConfig = z.infer<typeof WorkflowConfigSchema>;

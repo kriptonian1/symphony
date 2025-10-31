@@ -1,6 +1,6 @@
+import type { WorkflowConfig } from "@type/workflowConfig.types";
 import fs from "fs/promises";
 import yaml from "js-yaml";
-import { WorkflowConfig } from "@type/workflowConfig.types";
 
 /**
  * Parse the yml file and returns the workflow config object
@@ -8,8 +8,8 @@ import { WorkflowConfig } from "@type/workflowConfig.types";
  * @returns {WorkflowConfig} WorkflowConfig object
  */
 export default async function loadWorkflowConfig(
-    filePath: string
+	filePath: string,
 ): Promise<WorkflowConfig> {
-    const ymlContent = await fs.readFile(filePath, "utf8");
-    return yaml.load(ymlContent) as WorkflowConfig;
+	const ymlContent = await fs.readFile(filePath, "utf8");
+	return yaml.load(ymlContent) as WorkflowConfig;
 }
