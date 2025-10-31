@@ -7,8 +7,8 @@ import chalk from "chalk";
 async function main(): Promise<void> {
     const program = new Command();
     program
-        .name("symph")
-        .description("Symph - Automated Browser Workflows")
+        .name("symphony")
+        .description("symphony - Automated Browser Workflows")
         .version("1.0.0")
         .option("-f, --file <path>", "Path to the workflow YAML file")
         .option("--hl, --headless", "Run in headless mode", false)
