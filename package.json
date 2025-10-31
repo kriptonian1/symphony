@@ -8,7 +8,8 @@
 		"build": "bun build src/index.ts --target=bun --outfile=dist/index.js --minify --external=playwright --external=electron",
 		"build:exe": "bun build src/index.ts --compile --outfile build/symphony --external=playwright --external=electron --minify",
 		"start": "bun run src/index.ts",
-		"format-lint": "bunx biome check --write"
+		"format-lint": "bunx biome check --write",
+        "format-lint:check": "bunx biome check"
 	},
 	"keywords": [],
 	"author": "",
