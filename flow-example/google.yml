@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/kriptonian1/symphony/refs/heads/main/schemas/json/symphony.json
 name: Google Test
 url: https://www.google.com/
 colorMode: dark

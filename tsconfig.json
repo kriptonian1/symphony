@@ -13,7 +13,9 @@
 		"baseUrl": ".",
 		"paths": {
 			"@src/*": ["./src/*"],
-			"@type/*": ["./types/*"]
+			"@type/*": ["./types/*"],
+			"@constants/*": ["./constants/*"],
+			"@scripts/*": ["./scripts/*"]
 		}
 	},
 	"include": ["src", "types"],

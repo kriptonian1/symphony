@@ -1,30 +1,55 @@
+import { jsonSchemaMeta } from "@constants/json-schema-meta";
 import z from "zod";
+import { KeyboardSchema } from "./keyboard.type";
 
 export const InputActionSchema = z.object({
-	input: z.object({
-		selector: z.string(),
-		value: z.string(),
-	}),
+	input: z
+		.object({
+			selector: z.string().meta(jsonSchemaMeta.flow.input.selector),
+			value: z.string().meta(jsonSchemaMeta.flow.input.value),
+		})
+		.meta(jsonSchemaMeta.flow.input.description),
 });
 
 export const ClickActionSchema = z.object({
-	clickOn: z.union([
-		z.object({
-			selector: z.string(),
-		}),
-		z.string(),
-	]),
+	clickOn: z
+		.union([
+			z.object({
+				selector: z.string().meta(jsonSchemaMeta.flow.clickOn.selector),
+			}),
+			z.string().meta(jsonSchemaMeta.flow.clickOn.string),
+		])
+		.meta(jsonSchemaMeta.flow.clickOn.description),
 });
 
 export const WaitForActionSchema = z.object({
-	waitFor: z.object({
-		duration: z.number(),
-	}),
+	waitFor: z
+		.object({
+			duration: z.number().meta(jsonSchemaMeta.flow.waitFor.duration),
+		})
+		.meta(jsonSchemaMeta.flow.waitFor.description),
 });
 
 export const KeyboardActionSchema = z.object({
 	keyboard: z.object({
-		key: z.string(),
+		key: z
+			.string()
+			.regex(
+				/^([A-Za-z]+(\+)?)+$/,
+				"Invalid shortcut format, the correct format is 'Control+KeyA' or 'Shift+Alt+KeyB'",
+			)
+			.superRefine((val, ctx) => {
+				const parts = val.split("+").map((part) => part.trim());
+				const result = parts.every(
+					(part) => KeyboardSchema.safeParse(part).success,
+				);
+				if (!result) {
+					ctx.addIssue({
+						code: "custom",
+						message: `One or more keys in the shortcut '${val}' are invalid.`,
+					});
+				}
+			}),
 	}),
 });
 
@@ -47,10 +72,19 @@ export const FlowStepSchema = z.union([
 ]);
 
 export const WorkflowConfigSchema = z.object({
-	name: z.string(),
-	url: z.url(),
-	colorMode: z.enum(["light", "dark"]).optional(),
-	flow: z.array(FlowStepSchema),
+	name: z.string("Workflow name must be a string").meta(jsonSchemaMeta.name),
+	url: z
+		.httpUrl({
+			error:
+				"Invalid URL format, please provide a valid URL. example: https://www.example.com or http://localhost:3000",
+		})
+		.meta(jsonSchemaMeta.url),
+	colorMode: z
+		.enum(["light", "dark"])
+		.default("light")
+		.optional()
+		.meta(jsonSchemaMeta.colorMode),
+	flow: z.array(FlowStepSchema).meta(jsonSchemaMeta.flow.description),
 });
 
 export type WorkflowConfig = z.infer<typeof WorkflowConfigSchema>;
