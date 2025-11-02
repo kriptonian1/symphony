@@ -7,7 +7,7 @@
 		"*.{ts,js,json,yml}": "biome check --no-errors-on-unmatched --files-ignore-unknown=true"
 	},
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
+		"generate-json-schema": "bun run scripts/convert-to-json-schema.ts",
 		"build": "bun build src/index.ts --target=bun --outfile=dist/index.js --minify --external=playwright --external=electron",
 		"build:exe": "bun build src/index.ts --compile --outfile build/symphony --external=playwright --external=electron --minify",
 		"start": "bun run src/index.ts",
