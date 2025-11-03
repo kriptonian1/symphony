@@ -6,22 +6,26 @@ type Meta = Parameters<z.ZodType<any, any, any>["meta"]>[0];
 // ========= Core action metadata =========
 
 const nameMeta: Meta = {
+	title: "Workflow Name",
 	description:
 		"Name of your workflow. Symphony will display the name when running the workflow.",
 };
 
 const urlMeta: Meta = {
+	title: "Target Website URL",
 	description:
 		"Target website URL where this workflow will be executed. This determines the starting page for all automation steps in the flow.",
 };
 
 const colorModeMeta: Meta = {
+	title: "Color Mode",
 	description:
 		"Preferred color scheme for the target website during workflow execution. Set to 'light' or 'dark' to ensure consistent UI appearance across different systems. Defaults to 'light' if not specified.",
 	enumDescriptions: ["Light mode", "Dark mode"],
 };
 
 const flowMeta: Meta = {
+	title: "Workflow Flow Steps",
 	description:
 		"Ordered sequence of browser automation steps (clicks, inputs, scrolling, keyboard actions, waits, etc.) that define the complete workflow execution path.",
 };
@@ -29,6 +33,7 @@ const flowMeta: Meta = {
 // ========= Input action metadata =========
 
 const inputMeta: Meta = {
+	title: "Input Action",
 	description:
 		"Defines an input action where a value is entered into a specified input field identified by the `selector`, `label`, `testID`, `placeholder` or `role` .",
 };
@@ -36,6 +41,46 @@ const inputMeta: Meta = {
 const inputSelectorMeta: Meta = {
 	markdownDescription:
 		'Selector to identify the input field. Supports multiple locator strategies.\n\n---\n\n**Label Locator** — `label:`  \nLocates input elements by the text of the associated `<label>` or `aria-labelledby` element, or by the `aria-label` attribute.\n\n**Usage:** `label:Username`, `label:Email Address`\n\n**Example DOM:**\n```html\n<input aria-label="Username">\n<label for="email-input">Email Address:</label>\n<input id="email-input">\n```\n\n---\n\n**Test ID Locator** — `testID:`  \nLocates elements by their `data-testid` attribute. Recommended for reliable test automation.\n\n**Usage:** `testID:login-input`, `testID:search-field`\n\n**Example DOM:**\n```html\n<input data-testid="login-input" type="text">\n<input data-testid="search-field" placeholder="Search...">\n```\n\n---\n\n**Placeholder Locator** — `placeholder:`  \nLocates input elements by their `placeholder` attribute text.\n\n**Usage:** `placeholder:Enter your email`, `placeholder:Search...`\n\n**Example DOM:**\n```html\n<input placeholder="Enter your email" type="email">\n<input placeholder="Search..." type="search">\n```\n\n---\n\n**Role Locator** — `role:`  \nLocates elements by their ARIA role and optional accessible name.\n\n**Usage:** `role:textbox name="username"`, `role:searchbox`\n\n**Example DOM:**\n```html\n<input role="textbox" aria-label="username">\n<input role="searchbox" placeholder="Search products">\n```\n\n---\n\n**CSS Selector** — Direct CSS selector  \nStandard CSS selector syntax for precise element targeting.\n\n**Usage:** `#username`, `.form-input`, `input[name="email"]`\n\n**Example DOM:**\n```html\n<input id="username" type="text">\n<input class="form-input" name="email">\n```\n\n---\n\nSemantic locators (**label**, **testID**, **placeholder**, **role**) are recommended as they make tests more maintainable and align with accessibility best practices.',
+	pattern:
+		'^(label:[^\\s].*|testID:[^\\s].*|placeholder:[^\\s].*|role:[^\\s]+(\\s+name="[^"]+")?|[#.\\[][^\\s].*|[a-zA-Z][^\\s]*)$',
+	defaultSnippets: [
+		{
+			label: "Label locator",
+			// biome-ignore lint/suspicious/noTemplateCurlyInString: this placeholder is intended for json schema
+			body: "label:${1:Username}",
+			description: "Locate input by visible label or aria-label text.",
+		},
+		{
+			label: "Test ID locator",
+			// biome-ignore lint/suspicious/noTemplateCurlyInString: this placeholder is intended for json schema
+			body: "testID:${1:login-input}",
+			description: "Locate element by data-testid attribute.",
+		},
+		{
+			label: "Placeholder locator",
+			// biome-ignore lint/suspicious/noTemplateCurlyInString: this placeholder is intended for json schema
+			body: "placeholder:${1:Search...}",
+			description: "Locate input by its placeholder text.",
+		},
+		{
+			label: "Role locator",
+			// biome-ignore lint/suspicious/noTemplateCurlyInString: this placeholder is intended for json schema
+			body: 'role:${1:textbox} name="${2:username}"',
+			description: "Locate element by ARIA role and optional accessible name.",
+		},
+		{
+			label: "CSS selector (ID)",
+			// biome-ignore lint/suspicious/noTemplateCurlyInString: this placeholder is intended for json schema
+			body: "#${1:username}",
+			description: "Locate element by CSS ID selector.",
+		},
+		{
+			label: "CSS selector (class)",
+			// biome-ignore lint/suspicious/noTemplateCurlyInString: this placeholder is intended for json schema
+			body: ".${1:form-input}",
+			description: "Locate element by CSS class selector.",
+		},
+	],
 };
 
 const inputValueMeta: Meta = {
@@ -45,6 +90,7 @@ const inputValueMeta: Meta = {
 // ========= ClickOn Action metadata =========
 
 const clickOnMeta: Meta = {
+	title: "ClickOn Action",
 	description:
 		"Defines a click action that can target elements either by CSS selector or by visible text content.",
 };
@@ -62,6 +108,7 @@ const clickOnSelectorMeta: Meta = {
 // ========= WaitFor Action metadata =========
 
 const waitForMeta: Meta = {
+	title: "WaitFor Action",
 	description:
 		"Defines a wait action that pauses workflow execution for a specified duration in milliseconds.",
 };
@@ -69,6 +116,92 @@ const waitForMeta: Meta = {
 const waitForDurationMeta: Meta = {
 	markdownDescription:
 		"Duration in milliseconds to pause execution.\n\n**Usage**  \nPauses the workflow execution for the specified time period. Useful for:\n- Waiting for animations to complete\n- Allowing page content to load\n- Adding delays between rapid actions\n- Ensuring UI stability before next step\n\n**Examples**\n- `1000` — Wait for 1 second\n- `500` — Wait for 0.5 seconds\n- `3000` — Wait for 3 seconds\n- `100` — Wait for 0.1 seconds\n\n**Common Use Cases**\n```yaml\n- waitFor:\n    duration: 2000  # Wait 2 seconds for page to load\n```\n\n```yaml\n- waitFor:\n    duration: 500   # Brief pause after form submission\n```",
+};
+
+// ======== Scroll Action Metadata =========
+
+const scrollMeta: Meta = {
+	title: "Scroll Action",
+	description: "Defines a horizontal or vertical scroll action on the webpage.",
+};
+
+const scrollDirectionMeta: Meta = {
+	description: "Direction to scroll the webpage.",
+	enumDescriptions: ["Scrolls the page upwards", "Scrolls the page downwards"],
+};
+
+const scrollSpeedMeta: Meta = {
+	description:
+		"Speed of the scroll action in pixels per second. Higher values result in faster scrolling. If not specified, defaults to 300 pixels per second.",
+	default: 300,
+};
+
+const scrollPositionMeta: Meta = {
+	description:
+		"Coordinates to scroll to on the webpage. Specify `x` and `y` values representing the horizontal and vertical positions respectively.",
+};
+
+const scrollPositionXMeta: Meta = {
+	description: "Horizontal position to scroll to on the webpage.",
+};
+
+const scrollPositionYMeta: Meta = {
+	description: "Vertical position to scroll to on the webpage.",
+};
+
+// ======== Keyboard Action Metadata =========
+const keyboardMeta: Meta = {
+	title: "Keyboard Action",
+	description:
+		"Defines a keyboard action that simulates key presses on the webpage.",
+};
+
+const keyboardKeyMeta: Meta = {
+	markdownDescription:
+		"**Keyboard key or key combination.**\n\n" +
+		"Supports single keys like `Enter`, `KeyA`, or `ArrowUp`, and combinations joined by `+` such as `Control+Enter`, `Shift+Alt+KeyS`, or `ControlOrMeta+KeyC`.\n\n" +
+		"**Categories of valid keys:**\n\n" +
+		"- **Modifier Keys** — `Shift`, `Control`, `Alt`, `Meta`, `ControlOrMeta`\n" +
+		"- **Alphabetic Keys** — `KeyA` to `KeyZ`\n" +
+		"- **Digit Keys** — `Digit0` to `Digit9`\n" +
+		"- **Function Keys** — `F1` to `F12`\n" +
+		"- **Keypad Keys** — `Numpad0` to `Numpad9`, `NumpadAdd`, `NumpadEnter`, etc.\n" +
+		"- **Arrow Keys** — `ArrowUp`, `ArrowDown`, `ArrowLeft`, `ArrowRight`\n" +
+		"- **Editing Keys** — `Backspace`, `Enter`, `Tab`, `Delete`, `Escape`, `Space`, `Insert`\n" +
+		"- **Navigation Keys** — `Home`, `End`, `PageUp`, `PageDown`\n" +
+		"- **Symbol Keys** — `Minus`, `Equal`, `BracketLeft`, `BracketRight`, `Backslash`, `Semicolon`, `Quote`, `Comma`, `Period`, `Slash`\n" +
+		"- **Lock Keys** — `CapsLock`, `ScrollLock`\n" +
+		"- **Misc Keys** — `ContextMenu`, `Pause`, `PrintScreen`\n\n" +
+		"**Examples:**\n```yaml\n- pressKey: Enter\n- pressKey: Control+KeyA\n- pressKey: Shift+Alt+KeyS\n- pressKey: ControlOrMeta+KeyC\n```",
+	examples: ["Enter", "Control+KeyA", "Shift+Alt+KeyS", "ControlOrMeta+KeyC"],
+	pattern:
+		"^(?:Shift|Control|Alt|Meta|ControlOrMeta|Key[A-Z]|Digit[0-9]|F[1-9]|F1[0-2]|NumLock|Numpad[0-9]|Numpad(Add|Subtract|Multiply|Divide|Decimal|Enter)|Arrow(Up|Down|Left|Right)|Backspace|Tab|Enter|Delete|Escape|Space|Insert|Home|End|Page(Up|Down)|Minus|Equal|Bracket(Left|Right)|Backslash|Semicolon|Quote|Backquote|Comma|Period|Slash|CapsLock|ScrollLock|ContextMenu|Pause|PrintScreen)(?:\\+(?:Shift|Control|Alt|Meta|ControlOrMeta|Key[A-Z]|Digit[0-9]|F[1-9]|F1[0-2]|NumLock|Numpad[0-9]|Numpad(Add|Subtract|Multiply|Divide|Decimal|Enter)|Arrow(Up|Down|Left|Right)|Backspace|Tab|Enter|Delete|Escape|Space|Insert|Home|End|Page(Up|Down)|Minus|Equal|Bracket(Left|Right)|Backslash|Semicolon|Quote|Backquote|Comma|Period|Slash|CapsLock|ScrollLock|ContextMenu|Pause|PrintScreen))*$",
+	defaultSnippets: [
+		{
+			label: "Modifier + Letter",
+			// biome-ignore lint/suspicious/noTemplateCurlyInString: this placeholder is intended for json schema
+			body: "${1|Shift,Control,Alt,Meta,ControlOrMeta|}+Key${2|A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z|}",
+			description: "Example: Shift+KeyA",
+		},
+		{
+			label: "Modifier + Arrow",
+			// biome-ignore lint/suspicious/noTemplateCurlyInString: this placeholder is intended for json schema
+			body: "${1|Shift,Control,Alt,Meta,ControlOrMeta|}+Arrow${2|Up,Down,Left,Right|}",
+			description: "Example: Control+ArrowUp",
+		},
+		{
+			label: "Function Key",
+			// biome-ignore lint/suspicious/noTemplateCurlyInString: this placeholder is intended for json schema
+			body: "F${1|1,2,3,4,5,6,7,8,9,10,11,12|}",
+			description: "Example: F5",
+		},
+		{
+			label: "Single Key",
+			// biome-ignore lint/suspicious/noTemplateCurlyInString: this placeholder is intended for json schema
+			body: "Key${1|A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z|}",
+			description: "Example: KeyA",
+		},
+	],
 };
 
 /**
@@ -93,6 +226,20 @@ export const jsonSchemaMeta = {
 		waitFor: {
 			description: waitForMeta,
 			duration: waitForDurationMeta,
+		},
+		scroll: {
+			description: scrollMeta,
+			direction: scrollDirectionMeta,
+			speed: scrollSpeedMeta,
+			position: {
+				description: scrollPositionMeta,
+				x: scrollPositionXMeta,
+				y: scrollPositionYMeta,
+			},
+		},
+		keyboard: {
+			description: keyboardMeta,
+			key: keyboardKeyMeta,
 		},
 	},
 };
