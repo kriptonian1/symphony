@@ -1,3 +1,9 @@
+## [1.0.3](https://github.com/kriptonian1/symphony/compare/v1.0.2...v1.0.3) (2025-11-04)
+
+### Bug Fixes
+
+* npm warning and publish fail ([96efaa3](https://github.com/kriptonian1/symphony/commit/96efaa3d94599035b4f08007b9be90a0e936e6c1))
+
 ## [1.0.2](https://github.com/kriptonian1/symphony/compare/v1.0.1...v1.0.2) (2025-11-04)
 
 ### Bug Fixes
