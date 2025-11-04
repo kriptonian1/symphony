@@ -1,3 +1,9 @@
+## [1.0.7](https://github.com/kriptonian1/symphony/compare/v1.0.6...v1.0.7) (2025-11-04)
+
+### Bug Fixes
+
+* unable to push scoop ([d6970b1](https://github.com/kriptonian1/symphony/commit/d6970b10ef175691a32b517c55b7ff3f8401d7ef))
+
 ## [1.0.6](https://github.com/kriptonian1/symphony/compare/v1.0.5...v1.0.6) (2025-11-04)
 
 ### Bug Fixes
