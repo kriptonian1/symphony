@@ -25,7 +25,7 @@ jobs:
             - name: Check for changes
               id: verify-changed-files
               run: |
-                  if [ -n "$(git status --porcelain)" ]; then
+                  if [ -n "$(git status --porcelain schemas/json/symphony.json)" ]; then
                     echo "changed=true" >> $GITHUB_OUTPUT
                   else
                     echo "changed=false" >> $GITHUB_OUTPUT
