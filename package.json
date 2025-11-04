@@ -1,8 +1,11 @@
 {
 	"name": "symphony",
 	"version": "1.0.0",
-	"description": "",
-	"main": "index.js",
+	"description": "E2E testing made effortless for web",
+	"bin": {
+		"symphony": "dist/index.js"
+	},
+	"main": "dist/index.js",
 	"lint-staged": {
 		"*.{ts,js,json,yml}": "biome check --no-errors-on-unmatched --files-ignore-unknown=true"
 	},
@@ -22,9 +25,29 @@
 		"format-lint:check": "bunx biome check",
 		"prepare": "husky"
 	},
-	"keywords": [],
-	"author": "",
+	"keywords": [
+		"e2e testing",
+		"automation",
+		"testing",
+		"playwright alternative",
+		"browser automation",
+		"web testing",
+		"next js e2e testing",
+		"react e2e testing",
+		"vue e2e testing",
+		"svelte e2e testing",
+		"angular e2e testing",
+		"e2e testing framework",
+		"cypress alternative",
+		"puppeteer alternative"
+	],
+	"author": "Sawan Bhattacharya",
 	"license": "MIT",
+	"homepage": "https://github.com/kriptonian1/symphony#readme",
+	"repository": {
+		"url": "https://github.com/kriptonian1/symphony",
+		"type": "git"
+	},
 	"dependencies": {
 		"@clack/prompts": "^0.11.0",
 		"@types/bun": "^1.3.0",
