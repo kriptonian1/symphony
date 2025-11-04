@@ -150,11 +150,12 @@ jobs:
               with:
                   tag_name: v${{ needs.release.outputs.new_release_version }}
                   name: Release v${{ needs.release.outputs.new_release_version }}
+                  body: ${{ needs.release.outputs.new_release_notes }}
                   files: |
                       artifacts/**/*.tar.gz
                       artifacts/**/*.zip
                       artifacts/**/*.sha256
-                  generate_release_notes: true
+                  generate_release_notes: false
                   draft: false
                   prerelease: false
               env:
