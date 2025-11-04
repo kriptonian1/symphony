@@ -1,4 +1,4 @@
-import { jsonSchemaMeta } from "@constants/json-schema-meta";
+import { jsonSchemaMeta, rootMeta } from "@constants/json-schema-meta";
 import z from "zod";
 import { KeyboardSchema } from "./keyboard.type";
 
@@ -111,11 +111,7 @@ export const WorkflowConfigSchema = z
 			.meta(jsonSchemaMeta.colorMode),
 		flow: z.array(FlowStepSchema).meta(jsonSchemaMeta.flow.description),
 	})
-	.meta({
-		title: "Workflow Configuration",
-		description:
-			"Schema defining the structure of a workflow configuration including name, target URL, color mode, and flow steps.",
-	});
+	.meta(rootMeta);
 
 export type WorkflowConfig = z.infer<typeof WorkflowConfigSchema>;
 export type FlowStep = z.infer<typeof FlowStepSchema>;
