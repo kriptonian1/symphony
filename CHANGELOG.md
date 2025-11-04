@@ -1,3 +1,9 @@
+## [1.0.5](https://github.com/kriptonian1/symphony/compare/v1.0.4...v1.0.5) (2025-11-04)
+
+### Bug Fixes
+
+* name and add required field ([1bbb179](https://github.com/kriptonian1/symphony/commit/1bbb179405493d3d2f9298c1748746df79dc4473))
+
 ## [1.0.4](https://github.com/kriptonian1/symphony/compare/v1.0.3...v1.0.4) (2025-11-04)
 
 ### Bug Fixes
