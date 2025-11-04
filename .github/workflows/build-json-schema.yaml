@@ -10,6 +10,9 @@ jobs:
   generate-json-schema:
     runs-on: ubuntu-latest
     name: Generate JSON Schema
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
