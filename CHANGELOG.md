@@ -1,3 +1,9 @@
+## [1.0.6](https://github.com/kriptonian1/symphony/compare/v1.0.5...v1.0.6) (2025-11-04)
+
+### Bug Fixes
+
+* unable to push homebrew ([581610b](https://github.com/kriptonian1/symphony/commit/581610b9e109941797a849c26fed0fd1d1a6f565))
+
 ## [1.0.5](https://github.com/kriptonian1/symphony/compare/v1.0.4...v1.0.5) (2025-11-04)
 
 ### Bug Fixes
