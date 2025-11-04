@@ -1,17 +1,20 @@
 import { intro } from "@clack/prompts";
 import chalk from "chalk";
 import { Command } from "commander";
-import { description, name, version } from "package.json";
+import { description, version } from "package.json";
 import loadWorkflowConfig from "./loadWorkflowConfig";
 import runWorkflow from "./runWorkflow";
 
 async function main(): Promise<void> {
 	const program = new Command();
 	program
-		.name(name)
+		.name("symphony")
 		.description(description)
 		.version(version)
-		.option("-f, --file <path>", "Path to the workflow YAML file")
+		.requiredOption(
+			"-f, --file <path>",
+			"Path to the workflow YAML file (required)",
+		)
 		.option("--hl, --headless", "Run in headless mode", false)
 		.option(
 			"--be, --browser-engine <engine>",
