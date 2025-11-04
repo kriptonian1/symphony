@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Workflow Configuration",
+  "title": "Workflow Configuration Test",
   "description": "Schema defining the structure of a workflow configuration including name, target URL, color mode, and flow steps.",
   "type": "object",
   "properties": {
