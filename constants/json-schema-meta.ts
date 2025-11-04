@@ -5,7 +5,7 @@ type Meta = Parameters<z.ZodType<any, any, any>["meta"]>[0];
 
 // Root level metadata
 export const rootMeta: Meta = {
-	title: "Workflow Configuration",
+	title: "Workflow Configuration Test",
 	description:
 		"Schema defining the structure of a workflow configuration including name, target URL, color mode, and flow steps.",
 };
