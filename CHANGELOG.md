@@ -1,3 +1,9 @@
+## [1.0.2](https://github.com/kriptonian1/symphony/compare/v1.0.1...v1.0.2) (2025-11-04)
+
+### Bug Fixes
+
+* change to valid package name ([3c7c602](https://github.com/kriptonian1/symphony/commit/3c7c602c9e4164a04ad4bfe0a67f247d7e04b841))
+
 ## [1.0.1](https://github.com/kriptonian1/symphony/compare/v1.0.0...v1.0.1) (2025-11-04)
 
 ### Bug Fixes
