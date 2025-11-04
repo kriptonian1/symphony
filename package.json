@@ -1,5 +1,5 @@
 {
-	"name": "@kriptonian1/symphony",
+	"name": "@kriptonian/symphony",
 	"version": "1.0.1",
 	"description": "E2E testing made effortless for web",
 	"bin": {
@@ -51,7 +51,7 @@
 	"license": "MIT",
 	"homepage": "https://github.com/kriptonian1/symphony#readme",
 	"repository": {
-		"url": "https://github.com/kriptonian1/symphony",
+		"url": "git+https://github.com/kriptonian1/symphony.git",
 		"type": "git"
 	},
 	"dependencies": {
