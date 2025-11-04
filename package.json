@@ -1,5 +1,5 @@
 {
-	"name": "symphony",
+	"name": "@kriptonian1/symphony",
 	"version": "1.0.1",
 	"description": "E2E testing made effortless for web",
 	"bin": {
