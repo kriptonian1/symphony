@@ -1,3 +1,9 @@
+## [1.0.4](https://github.com/kriptonian1/symphony/compare/v1.0.3...v1.0.4) (2025-11-04)
+
+### Bug Fixes
+
+* run failure with node ([ce8c129](https://github.com/kriptonian1/symphony/commit/ce8c12994b5f00fcedc420826be5160744aad70f))
+
 ## [1.0.3](https://github.com/kriptonian1/symphony/compare/v1.0.2...v1.0.3) (2025-11-04)
 
 ### Bug Fixes
