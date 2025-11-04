@@ -1,6 +1,6 @@
 {
 	"name": "symphony",
-	"version": "0.0.0-development",
+	"version": "1.0.0",
 	"description": "E2E testing made effortless for web",
 	"bin": {
 		"symphony": "dist/index.js"
