@@ -23,7 +23,7 @@ async function main(): Promise<void> {
 	const { file, headless, browserEngine } = program.opts();
 
 	const config = await loadWorkflowConfig(file);
-	intro(chalk.blue(" ✨ Running Workflow: Tailwind CSS Test "));
+	intro(chalk.blue(` ✨ Running Workflow: ${config.name} `));
 	await runWorkflow(config, headless, browserEngine);
 }
 
