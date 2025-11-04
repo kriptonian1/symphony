@@ -1,0 +1,284 @@
+name: Release
+
+on:
+    push:
+        branches:
+            - main
+
+permissions:
+    contents: write
+    issues: write
+    pull-requests: write
+
+jobs:
+    release:
+        name: Semantic Release
+        runs-on: ubuntu-latest
+        outputs:
+            new_release_published: ${{ steps.semantic.outputs.new_release_published }}
+            new_release_version: ${{ steps.semantic.outputs.new_release_version }}
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+                  persist-credentials: false
+
+            - name: Setup Bun
+              uses: oven-sh/setup-bun@v2
+              with:
+                  bun-version: latest
+
+            - name: Install dependencies
+              run: bun ci
+
+            - name: Build
+              run: bun run build
+
+            - name: Semantic Release
+              id: semantic
+              uses: cycjimmy/semantic-release-action@v4
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+              with:
+                  extra_plugins: |
+                      @semantic-release/changelog
+                      @semantic-release/git
+
+    build-executables:
+        name: Build Executables
+        needs: release
+        if: needs.release.outputs.new_release_published == 'true'
+        strategy:
+            fail-fast: false
+            matrix:
+                include:
+                    - os: ubuntu-latest
+                      target: linux-x64
+                      artifact_name: symphony
+                      archive_ext: tar.gz
+                    - os: ubuntu-latest
+                      target: linux-arm64
+                      artifact_name: symphony
+                      archive_ext: tar.gz
+                    - os: ubuntu-latest
+                      target: linux-x64-musl
+                      artifact_name: symphony
+                      archive_ext: tar.gz
+                    - os: ubuntu-latest
+                      target: linux-arm64-musl
+                      artifact_name: symphony
+                      archive_ext: tar.gz
+                    - os: windows-latest
+                      target: windows-x64
+                      artifact_name: symphony.exe
+                      archive_ext: zip
+                    - os: macos-latest
+                      target: darwin-x64
+                      artifact_name: symphony
+                      archive_ext: tar.gz
+                    - os: macos-latest
+                      target: darwin-arm64
+                      artifact_name: symphony
+                      archive_ext: tar.gz
+        runs-on: ${{ matrix.os }}
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Setup Bun
+              uses: oven-sh/setup-bun@v2
+              with:
+                  bun-version: latest
+
+            - name: Install dependencies
+              run: bun install --frozen-lockfile
+
+            - name: Build executable
+              run: bun run build:exe:${{ matrix.target }}
+
+            - name: Create archive (Unix)
+              if: matrix.archive_ext == 'tar.gz'
+              working-directory: build/${{ matrix.target }}
+              run: tar -czf symphony-${{ matrix.target }}.tar.gz ${{ matrix.artifact_name }}
+
+            - name: Create archive (Windows)
+              if: matrix.archive_ext == 'zip'
+              working-directory: build/${{ matrix.target }}
+              run: 7z a symphony-${{ matrix.target }}.zip ${{ matrix.artifact_name }}
+
+            - name: Generate SHA256 checksum (Unix)
+              if: runner.os != 'Windows'
+              working-directory: build/${{ matrix.target }}
+              run: |
+                  shasum -a 256 symphony-${{ matrix.target }}.${{ matrix.archive_ext }} > symphony-${{ matrix.target }}.sha256
+
+            - name: Generate SHA256 checksum (Windows)
+              if: runner.os == 'Windows'
+              working-directory: build/${{ matrix.target }}
+              run: |
+                  certutil -hashfile symphony-${{ matrix.target }}.${{ matrix.archive_ext }} SHA256 > symphony-${{ matrix.target }}.sha256
+
+            - name: Upload artifact
+              uses: actions/upload-artifact@v4
+              with:
+                  name: symphony-${{ matrix.target }}
+                  path: |
+                      build/${{ matrix.target }}/symphony-${{ matrix.target }}.${{ matrix.archive_ext }}
+                      build/${{ matrix.target }}/symphony-${{ matrix.target }}.sha256
+
+    github-release:
+        name: Create GitHub Release
+        needs: [release, build-executables]
+        if: needs.release.outputs.new_release_published == 'true'
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Download all artifacts
+              uses: actions/download-artifact@v4
+              with:
+                  path: ./artifacts
+
+            - name: Display structure
+              run: ls -R ./artifacts
+
+            - name: Create GitHub Release
+              uses: softprops/action-gh-release@v2
+              with:
+                  tag_name: v${{ needs.release.outputs.new_release_version }}
+                  name: Release v${{ needs.release.outputs.new_release_version }}
+                  files: |
+                      artifacts/**/*.tar.gz
+                      artifacts/**/*.zip
+                      artifacts/**/*.sha256
+                  generate_release_notes: true
+                  draft: false
+                  prerelease: false
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    publish-homebrew:
+        name: Publish to Homebrew
+        needs: [release, github-release]
+        if: needs.release.outputs.new_release_published == 'true'
+        runs-on: macos-latest
+        steps:
+            - name: Checkout current repo
+              uses: actions/checkout@v4
+              with:
+                  token: ${{ secrets.GITHUB_TOKEN }}
+                  fetch-depth: 0
+
+            - name: Update Homebrew formula
+              run: |
+                  VERSION="${{ needs.release.outputs.new_release_version }}"
+                  REPO="${{ github.repository }}"
+
+                  # Download archives
+                  curl -sL "https://github.com/${REPO}/releases/download/v${VERSION}/symphony-darwin-x64.tar.gz" -o darwin-x64.tar.gz
+                  curl -sL "https://github.com/${REPO}/releases/download/v${VERSION}/symphony-darwin-arm64.tar.gz" -o darwin-arm64.tar.gz
+
+                  # Calculate checksums
+                  SHA256_X64=$(shasum -a 256 darwin-x64.tar.gz | cut -d ' ' -f1)
+                  SHA256_ARM64=$(shasum -a 256 darwin-arm64.tar.gz | cut -d ' ' -f1)
+
+                  # Create formula directory in main repo
+                  mkdir -p Formula
+
+                  # Generate formula
+                  cat > Formula/symphony.rb <<EOF
+                  class Symphony < Formula
+                    desc "E2E testing made effortless for web"
+                    homepage "https://github.com/${REPO}"
+                    version "${VERSION}"
+                    license "MIT"
+                   
+                    on_macos do
+                      if Hardware::CPU.intel?
+                        url "https://github.com/${REPO}/releases/download/v${VERSION}/symphony-darwin-x64.tar.gz"
+                        sha256 "${SHA256_X64}"
+                      else
+                        url "https://github.com/${REPO}/releases/download/v${VERSION}/symphony-darwin-arm64.tar.gz"
+                        sha256 "${SHA256_ARM64}"
+                      end
+                    end
+                   
+                    def install
+                      bin.install "symphony"
+                    end
+                   
+                    test do
+                      system "#{bin}/symphony", "--version"
+                    end
+                  end
+                  EOF
+
+                  # Commit to main repo
+                  git config user.name "github-actions[bot]"
+                  git config user.email "github-actions[bot]@users.noreply.github.com"
+                  git add Formula/symphony.rb
+                  git commit -m "feat: update homebrew formula to ${VERSION}" || echo "No changes to commit"
+                  git push
+
+    publish-scoop:
+        name: Publish to Scoop
+        needs: [release, github-release]
+        if: needs.release.outputs.new_release_published == 'true'
+        runs-on: windows-latest
+        steps:
+            - name: Checkout current repo
+              uses: actions/checkout@v4
+              with:
+                  token: ${{ secrets.GITHUB_TOKEN }}
+                  fetch-depth: 0
+
+            - name: Update Scoop manifest
+              run: |
+                  $VERSION = "${{ needs.release.outputs.new_release_version }}"
+                  $REPO = "${{ github.repository }}"
+
+                  # Download Windows archive
+                  $url = "https://github.com/$REPO/releases/download/v$VERSION/symphony-windows-x64.zip"
+                  Invoke-WebRequest -Uri $url -OutFile "symphony-windows-x64.zip"
+
+                  # Calculate SHA256 hash
+                  $hash = (Get-FileHash -Path "symphony-windows-x64.zip" -Algorithm SHA256).Hash.ToLower()
+
+                  # Create scoop directory in main repo
+                  New-Item -ItemType Directory -Force -Path "scoop"
+
+                  # Generate Scoop manifest
+                  $manifest = @"
+                  {
+                      "version": "$VERSION",
+                      "description": "E2E testing made effortless for web",
+                      "homepage": "https://github.com/$REPO",
+                      "license": "MIT",
+                      "url": "https://github.com/$REPO/releases/download/v$VERSION/symphony-windows-x64.zip",
+                      "hash": "$hash",
+                      "bin": "symphony.exe",
+                      "checkver": {
+                          "github": "https://github.com/$REPO"
+                      },
+                      "autoupdate": {
+                          "url": "https://github.com/$REPO/releases/download/v`$version/symphony-windows-x64.zip"
+                      }
+                  }
+                  "@
+
+                  # Write manifest to file
+                  $manifest | Out-File -FilePath "scoop/symphony.json" -Encoding UTF8
+
+                  # Commit to main repo
+                  git config user.name "github-actions[bot]"
+                  git config user.email "github-actions[bot]@users.noreply.github.com"
+                  git add scoop/symphony.json
+                  git commit -m "feat: update scoop manifest to $VERSION" -ErrorAction SilentlyContinue
+                  if ($LASTEXITCODE -eq 0) {
+                      git push
+                  } else {
+                      Write-Output "No changes to commit"
+                  }
