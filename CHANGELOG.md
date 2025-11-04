@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/kriptonian1/symphony/compare/v1.0.0...v1.0.1) (2025-11-04)
+
+### Bug Fixes
+
+* add npm release plugin ([#6](https://github.com/kriptonian1/symphony/issues/6)) ([4256e3b](https://github.com/kriptonian1/symphony/commit/4256e3bc669364134146e14b0b73d2440599ec19))
+* merge conflict ([be2fe03](https://github.com/kriptonian1/symphony/commit/be2fe03b11b0283c73e1602a4f4aba1fd70df632))
+
 ## 1.0.0 (2025-11-04)
 
 ### Features
