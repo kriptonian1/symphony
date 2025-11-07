@@ -1,3 +1,19 @@
+## [1.1.0](https://github.com/kriptonian1/symphony/compare/v1.0.7...v1.1.0) (2025-11-07)
+
+### Features
+
+* add readme ([6794d7a](https://github.com/kriptonian1/symphony/commit/6794d7acce631e3e1dfa729a8e0ace1cc34c9f3e))
+
+### Bug Fixes
+
+* build js ([08c8e5b](https://github.com/kriptonian1/symphony/commit/08c8e5bc3eafc90cda8acad8113840f23f2e7bab))
+* minor issues ([#7](https://github.com/kriptonian1/symphony/issues/7)) ([9ed9a43](https://github.com/kriptonian1/symphony/commit/9ed9a43b81ec3cc8421d88e04393c1295c084b58))
+* package not find in single exe ([dcabed3](https://github.com/kriptonian1/symphony/commit/dcabed3397e8b68c8d32440a9c3a7245f695f557))
+
+### CI/CD
+
+* fix git push bug in brew ([5851522](https://github.com/kriptonian1/symphony/commit/5851522c0103325fadcae5996c81dcca553fc539))
+
 ## [1.0.7](https://github.com/kriptonian1/symphony/compare/v1.0.6...v1.0.7) (2025-11-04)
 
 ### Bug Fixes
