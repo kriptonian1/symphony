@@ -17,7 +17,7 @@
 	],
 	"scripts": {
 		"generate-json-schema": "bun run scripts/convert-to-json-schema.ts",
-		"build": "bun build src/index.ts --target=bun --outfile=dist/index.js --minify --banner '#!/usr/bin/env bun'",
+		"build": "bun build src/index.ts --target=bun --outdir dist --minify --banner '#!/usr/bin/env bun'",
 		"build:exe": "bun build src/index.ts --compile --outfile build/symphony --minify",
 		"build:exe:linux-x64": "bun build src/index.ts --compile --outfile build/linux-x64/symphony --target=bun-linux-x64 --minify",
 		"build:exe:linux-arm64": "bun build src/index.ts --compile --outfile build/linux-arm64/symphony --target=bun-linux-arm64 --minify",
