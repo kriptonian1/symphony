@@ -1,3 +1,9 @@
+## [1.2.0](https://github.com/kriptonian1/symphony/compare/v1.1.1...v1.2.0) (2025-11-18)
+
+### Features
+
+* fix issue with playwright deps ([#11](https://github.com/kriptonian1/symphony/issues/11)) ([b5c530d](https://github.com/kriptonian1/symphony/commit/b5c530dbe9433b8403fb68c2326a697c1912ad29))
+
 ## [1.1.1](https://github.com/kriptonian1/symphony/compare/v1.1.0...v1.1.1) (2025-11-07)
 
 ### Bug Fixes
