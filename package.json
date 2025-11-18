@@ -61,7 +61,8 @@
 		"chromium-bidi": "^10.6.1",
 		"commander": "^14.0.2",
 		"electron": "^39.1.0",
-		"zod": "^4.1.12"
+		"zod": "^4.1.12",
+		"playwright": "^1.56.0"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.3.2",
@@ -76,8 +77,5 @@
 		"lint-staged": "^16.2.6",
 		"semantic-release": "^25.0.1",
 		"typescript": "^5.9.3"
-	},
-	"peerDependencies": {
-		"playwright": "^1.56.0"
 	}
 }

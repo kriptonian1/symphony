@@ -4,6 +4,7 @@ import { Command } from "commander";
 import { description, version } from "package.json";
 import loadWorkflowConfig from "./loadWorkflowConfig";
 import runWorkflow from "./runWorkflow";
+import "playwright-core";
 
 async function main(): Promise<void> {
 	const program = new Command();
