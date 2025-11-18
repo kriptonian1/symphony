@@ -1,3 +1,11 @@
+## [1.2.4](https://github.com/kriptonian1/symphony/compare/v1.2.3...v1.2.4) (2025-11-18)
+
+### Bug Fixes
+
+* bun lock ([248caaa](https://github.com/kriptonian1/symphony/commit/248caaad375218b258ca94bb9ce5f3a423d828a9))
+* bun lock ([d6f3c9a](https://github.com/kriptonian1/symphony/commit/d6f3c9a7cb1e7f601efcdbc91b7cb705afaf0327))
+* playwright issue ([#14](https://github.com/kriptonian1/symphony/issues/14)) ([b81dd38](https://github.com/kriptonian1/symphony/commit/b81dd3878229112594d670cdfb5e5f94ede18617))
+
 ## [1.2.3](https://github.com/kriptonian1/symphony/compare/v1.2.2...v1.2.3) (2025-11-18)
 
 ### Bug Fixes
