@@ -1,3 +1,17 @@
+## [1.2.2](https://github.com/kriptonian1/symphony/compare/v1.2.1...v1.2.2) (2025-11-18)
+
+### Bug Fixes
+
+* add playwright core deps ([1b4ee68](https://github.com/kriptonian1/symphony/commit/1b4ee6884f408ad32e6c433dc81bff5c6da21030))
+* issue with playwright deps ([a23cfeb](https://github.com/kriptonian1/symphony/commit/a23cfeb736d141ec0c7b9d9b6690b8dd3e785fc9))
+* trying to fix playwrite issue ([5083601](https://github.com/kriptonian1/symphony/commit/50836013afdf7fff7bc99f17e46e984f4885b7a6))
+
+## [1.2.1](https://github.com/kriptonian1/symphony/compare/v1.2.0...v1.2.1) (2025-11-18)
+
+### Bug Fixes
+
+* playwright core deps ([#13](https://github.com/kriptonian1/symphony/issues/13)) ([73906fd](https://github.com/kriptonian1/symphony/commit/73906fd5b9ea0ffda1fa76986276692b70d83046))
+
 ## [1.2.0](https://github.com/kriptonian1/symphony/compare/v1.1.1...v1.2.0) (2025-11-18)
 
 ### Features

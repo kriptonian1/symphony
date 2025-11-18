@@ -1,6 +1,6 @@
 {
 	"name": "@kriptonian/symphony",
-	"version": "1.2.0",
+	"version": "1.2.2",
 	"description": "E2E testing made effortless for web",
 	"bin": {
 		"symphony": "dist/index.js"
