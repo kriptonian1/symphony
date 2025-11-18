@@ -1,16 +1,16 @@
 class Symphony < Formula
   desc "E2E testing made effortless for web"
   homepage "https://github.com/kriptonian1/symphony"
-  version "1.2.3"
+  version "1.2.4"
   license "MIT"
  
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/kriptonian1/symphony/releases/download/v1.2.3/symphony-darwin-x64.tar.gz"
-      sha256 "b8e9891b7c93b530f955b5c3ddcdec1f15811b1e8916b63b1b2c3bda1f4edd7b"
+      url "https://github.com/kriptonian1/symphony/releases/download/v1.2.4/symphony-darwin-x64.tar.gz"
+      sha256 "0d7197b55c144cdf2a58c7d28b110a63a6d574a6ab63f8be7d5db2936625d91f"
     else
-      url "https://github.com/kriptonian1/symphony/releases/download/v1.2.3/symphony-darwin-arm64.tar.gz"
-      sha256 "8c5d62ac0de11e47905aace7b169074c699e0163b6b5d674b83c82451c05628e"
+      url "https://github.com/kriptonian1/symphony/releases/download/v1.2.4/symphony-darwin-arm64.tar.gz"
+      sha256 "562c97e9ede358a3e8a9b2fc92e59672a31f6da49e54d1a23f8482e27ba543bb"
     end
   end
  
