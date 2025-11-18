@@ -77,5 +77,8 @@
 		"lint-staged": "^16.2.6",
 		"semantic-release": "^25.0.1",
 		"typescript": "^5.9.3"
+	},
+	"peerDependencies": {
+		"playwright": "^1.56.0"
 	}
 }
