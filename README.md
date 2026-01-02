@@ -37,8 +37,9 @@ If you don’t have Bun installed yet, follow the [official installation guide](
 
 ### ⚙️ Installation
 
-You can install Symphony in two ways — choose what fits your workflow.
+You can install Symphony in using bun or npm.
 
+<!--
 #### 🧵 Option 1: macOS (via Homebrew)
 
 If you’re on macOS and use [Homebrew](https://brew.sh/):
@@ -55,13 +56,18 @@ symphony --version
 You’re ready to roll! 🎉
 
 ---
+-->
 
-#### 📦 Option 2: Universal (via NPM)
+#### 📦 NPM install
 
 If you prefer installing through npm or are on Windows/Linux:
 
 ```
 npm install -g @kriptonian/symphony
+```
+then run the following command to setup symphony
+```sh
+curl -sL https://raw.githubusercontent.com/kriptonian1/symphony/refs/heads/develop/scripts/setup.sh | bash
 ```
 
 Then check your installation:
