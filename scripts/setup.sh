@@ -10,7 +10,7 @@ echo "🚀 Starting setup..."
 
 # Install Playwright browsers
 echo "Installing Playwright browsers..."
-npx playwright install chromium webkit firefox
+npx -y playwright@1.56.0 install chromium webkit firefox
 
 # 2. Check if the patch is needed
 if [ -z "$TARGET_FILE" ]; then
