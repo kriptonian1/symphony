@@ -1,41 +1,41 @@
 #!/bin/bash
 
-echo "🚀 Starting Symphony Environment Setup..."
+# 1. Define the file we need to patch
+TARGET_FILE=$(
+  symphony --help 2>&1 \
+  | sed -n "s/.*from '\([^']*\)'.*/\1/p"
+)
 
-# 1. Check/Install Bun
-if ! command -v bun &> /dev/null; then
-    echo "📦 Bun not found. Installing Bun..."
-    curl -fsSL https://bun.sh/install | bash
-    # Source the new path so the script can use 'bun' immediately
-    export BUN_INSTALL="$HOME/.bun"
-    export PATH="$BUN_INSTALL/bin:$PATH"
+# 2. Check if the patch is needed
+if [ -z "$TARGET_FILE" ]; then
+    echo "✅ Setup is already done. No patch needed."
+    exit 0
+fi
+
+# 3. Add playwrite-core
+if ! npm list -g playwright-core >/dev/null 2>&1; then
+    echo "Adding playwright-core globally..."
+    npm install -g playwright-core
 else
-    echo "✅ Bun is already installed."
+    echo "✅ playwright-core is already installed globally."
 fi
 
-# 2. Install Playwright Core and Symphony globally using Bun
-echo "📥 Installing Playwright Core and Symphony globally..."
-bun install -g playwright-core @kriptonian/symphony
+echo "🔍 Searching for Symphony..."
 
-# 3. Apply the Patch
-echo "🛠  Applying path fix to Symphony..."
-SEARCH="/home/runner/work/symphony/symphony/node_modules/playwright-core/package.json"
-REPLACE="playwright-core/package.json"
-
-# Find the actual global path where bun installed symphony
-TARGET_FILE=$(bun pm bin -g)/../install/global/node_modules/@kriptonian/symphony/dist/index.js
-
-# Fallback check for standard npm global paths if Bun pathing differs
-if [ ! -f "$TARGET_FILE" ]; then
-    TARGET_FILE=$(npm list -g --parseable @kriptonian/symphony 2>/dev/null)/dist/index.js
-fi
-
+# 4. Apply the patch
 if [ -f "$TARGET_FILE" ]; then
+    echo "📍 Found at: $TARGET_FILE"
+    echo "🛠  Applying the fix..."
+    
+    SEARCH='/home/runner/work/symphony/symphony/node_modules/playwright-core/package.json'
+    REPLACE='playwright-core/package.json'
+    
+    # Apply the string replacement (macOS compatible sed)
     sed -i '' "s|$SEARCH|$REPLACE|g" "$TARGET_FILE"
-    echo "✨ Patch applied to: $TARGET_FILE"
+    
+    echo "✅ Success! The path has been corrected."
 else
-    echo "❌ Error: Could not locate Symphony to patch. Please check installation."
+    echo "❌ Error: Could not find @kriptonian/symphony."
+    echo "Please ensure it is installed via 'npm install -g' or 'bun install -g'."
     exit 1
 fi
-
-echo "🏁 Setup complete! You can now use 'symphony'."
