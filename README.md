@@ -5,11 +5,13 @@
 Symphony is tool to help you write E2E test like human, it use a YMAL to define tests 
 
 <p align="center">
+  <a href="https://github.com/user-attachments/assets/4ccc9a61-8135-430c-b7a3-929033fe6fc7">
   <img
     src="https://github.com/user-attachments/assets/d6764c1a-8427-4704-b354-d15cbf53fc2a"
     width="100%"
     alt="Demo preview"
   />
+  </a>
 </p>
 
 <p align="center">
