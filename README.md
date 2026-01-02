@@ -1,8 +1,17 @@
+
+
+<!-- ![ScreenRecording2026-01-02at8 26 35PM-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/27b8581f-23bc-4feb-ac92-1f749ee9f711) -->
+
+
 # Symphony
 
 > E2E testing made effortless for web
 
 Symphony is tool to help you write E2E test like human, it use a YMAL to define tests 
+
+<p align="center">
+  <img width="100%" src="https://github.com/user-attachments/assets/27b8581f-23bc-4feb-ac92-1f749ee9f711" alt="animated" />
+</p>
 
 ---
 
