@@ -1,10 +1,9 @@
 import { outro, spinner } from "@clack/prompts";
+import BrowserManager from "@src/browser/browser-manager";
 import executeStep from "@src/executionFlow";
 import type { BrowserEngine } from "@type/browserEngine";
 import type { WorkflowConfig } from "@type/workflowConfig.types";
 import chalk from "chalk";
-import type { Browser } from "playwright";
-import BrowserManager from "./browser/browser-manager";
 
 function handleError(error: unknown) {
 	if (error instanceof Error && error.message.includes("step is invalid")) {
@@ -23,11 +22,10 @@ export default async function runWorkflow(
 	headless: boolean,
 	browserEngine: BrowserEngine,
 ): Promise<void> {
-	let browser: Browser | null = null;
 	const engine = new BrowserManager();
 
 	try {
-		browser = await engine.load(browserEngine, headless);
+		const browser = await engine.load(browserEngine, headless);
 
 		const context = await browser.newContext({
 			colorScheme: config.colorMode,
