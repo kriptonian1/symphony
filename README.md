@@ -75,3 +75,10 @@ Then check your installation:
 ```
 symphony --version
 ```
+
+## 📚 Documentation
+- 🚀 **[Getting Started](./docs/developer-docs.md)**  
+  Learn how to install Symphony, write your first YAML test, and run it locally.
+- 🧠 **[YAML DSL Reference](./docs/grammer.md)**  
+  A complete reference of Symphony’s human-readable testing language — steps, syntax, and execution rules.
+
