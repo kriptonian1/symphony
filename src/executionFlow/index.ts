@@ -10,7 +10,7 @@ export default async function executeStep(
 	const { success, error } = FlowStepSchema.safeParse(step);
 	if (!success) {
 		const keys = Object.keys(step).join(", ");
-		console.error(`${z.prettifyError(error)}: ${keys} step is invalid`);
+		console.error(`${z.prettifyError(error)}: \`${keys}\` step is invalid`);
 		throw new Error(`${keys} step is invalid`);
 	}
 
