@@ -3,7 +3,8 @@ import executeStep from "@src/executionFlow";
 import type { BrowserEngine } from "@type/browserEngine";
 import type { WorkflowConfig } from "@type/workflowConfig.types";
 import chalk from "chalk";
-import { type Browser, chromium, firefox, webkit } from "playwright";
+import type { Browser } from "playwright";
+import BrowserManager from "./browser/browser-manager";
 
 function handleError(error: unknown) {
 	if (error instanceof Error && error.message.includes("step is invalid")) {
@@ -17,37 +18,16 @@ function handleError(error: unknown) {
 	}
 }
 
-async function browserCleanup(browser: Browser | null): Promise<void> {
-	if (browser) {
-		await browser.close();
-	}
-}
-
-async function loadBrowserEngine(
-	engine: BrowserEngine,
-	headless: boolean,
-): Promise<Browser> {
-	switch (engine) {
-		case "chromium":
-			return await chromium.launch({ headless });
-		case "webkit":
-			return await webkit.launch({ headless });
-		case "firefox":
-			return await firefox.launch({ headless });
-		default:
-			throw new Error(`Unsupported browser engine: ${engine}`);
-	}
-}
-
 export default async function runWorkflow(
 	config: WorkflowConfig,
 	headless: boolean,
 	browserEngine: BrowserEngine,
 ): Promise<void> {
 	let browser: Browser | null = null;
+	const engine = new BrowserManager();
 
 	try {
-		browser = await loadBrowserEngine(browserEngine, headless);
+		browser = await engine.load(browserEngine, headless);
 
 		const context = await browser.newContext({
 			colorScheme: config.colorMode,
@@ -68,6 +48,6 @@ export default async function runWorkflow(
 	} catch (error) {
 		handleError(error);
 	} finally {
-		await browserCleanup(browser);
+		await engine.cleanup();
 	}
 }
