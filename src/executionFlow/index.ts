@@ -1,11 +1,7 @@
 import { type FlowStep, FlowStepSchema } from "@type/workflowConfig.types";
 import type { Page } from "playwright";
 import z from "zod";
-import clickonExecutionFlow from "./clickonExecutionFlow";
-import inputExecutionFlow from "./inputExecutionFlow";
-import keyboardExecutionFlow from "./keyboardExecutionFlow";
-import scrollExecutionFlow from "./scrollExecutionFlow";
-import waitforExecutionFlow from "./waitforExecutionFlow";
+import { flowRegistry, type stepKeys } from "./flow-registry";
 
 export default async function executeStep(
 	page: Page,
@@ -18,22 +14,7 @@ export default async function executeStep(
 		throw new Error(`${keys} step is invalid`);
 	}
 
-	if ("input" in step) {
-		await inputExecutionFlow(step, page);
-	}
+	const stepKey = Object.keys(step)[0] as stepKeys;
 
-	if ("clickOn" in step) {
-		await clickonExecutionFlow(step, page);
-	}
-
-	if ("waitFor" in step) {
-		await waitforExecutionFlow(step, page);
-	}
-
-	if ("keyboard" in step) {
-		await keyboardExecutionFlow(step, page);
-	}
-	if ("scroll" in step) {
-		await scrollExecutionFlow(step, page);
-	}
+	await flowRegistry[stepKey](step, page);
 }
