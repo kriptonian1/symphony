@@ -1,11 +1,13 @@
 import type { KeysOfUnion } from "@type/utils";
 import type { FlowStep } from "@type/workflowConfig.types";
 import type { Page } from "playwright-core";
-import clickonExecutionFlow from "./clickonExecutionFlow";
-import inputExecutionFlow from "./inputExecutionFlow";
-import keyboardExecutionFlow from "./keyboardExecutionFlow";
-import scrollExecutionFlow from "./scrollExecutionFlow";
-import waitforExecutionFlow from "./waitforExecutionFlow";
+import {
+	clickonExecutionFlow,
+	inputExecutionFlow,
+	keyboardExecutionFlow,
+	scrollExecutionFlow,
+	waitforExecutionFlow,
+} from "./flows";
 
 export type stepKeys = KeysOfUnion<FlowStep>;
 
