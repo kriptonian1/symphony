@@ -8,6 +8,13 @@ import type { WorkflowConfig } from "@type/workflowConfig.types";
 export default async function loadWorkflowConfig(
 	filePath: string,
 ): Promise<WorkflowConfig> {
-	const ymlContent = await Bun.file(filePath).text();
-	return Bun.YAML.parse(ymlContent) as WorkflowConfig;
+	try {
+		const ymlContent = await Bun.file(filePath).text();
+		return Bun.YAML.parse(ymlContent) as WorkflowConfig;
+	} catch {
+		console.error(
+			`Error: Unable to read file at path "${filePath}". Please ensure the file exists and is accessible.`,
+		);
+		process.exit(1);
+	}
 }
