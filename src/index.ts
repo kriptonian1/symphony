@@ -13,7 +13,7 @@ async function main(): Promise<void> {
 
 	const config = await loadWorkflowConfig(file);
 	intro(chalk.blue(` ✨ Running Workflow: ${config.name} `));
-	await runWorkflow(config, headless, browserEngine);
+	await runWorkflow(config, { headless, engine: browserEngine });
 }
 
 main().catch((error) => {

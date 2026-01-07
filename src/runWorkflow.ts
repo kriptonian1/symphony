@@ -1,50 +1,36 @@
-import { outro, spinner } from "@clack/prompts";
+import { outro } from "@clack/prompts";
 import BrowserManager from "@src/browser/browser-manager";
+import { setupBrowser } from "@src/browser/setup-browser";
+import { handleWorkflowError } from "@src/errors/handle-workflow-error";
 import executeStep from "@src/executionFlow";
 import type { BrowserEngine } from "@type/browserEngine";
 import type { WorkflowConfig } from "@type/workflowConfig.types";
 import chalk from "chalk";
 
-function handleError(error: unknown) {
-	if (error instanceof Error && error.message.includes("step is invalid")) {
-		console.error("\n✖ Workflow stopped due to validation error");
-		console.error(
-			"Please fix the syntax error in your YAML file and try again.\n",
-		);
-	} else {
-		console.error("Workflow failed:", error);
-		throw error;
-	}
+interface BrowserOptions {
+	headless: boolean;
+	engine: BrowserEngine;
 }
 
 export default async function runWorkflow(
 	config: WorkflowConfig,
-	headless: boolean,
-	browserEngine: BrowserEngine,
+	options: BrowserOptions,
 ): Promise<void> {
 	const engine = new BrowserManager();
-
+	const { page } = await setupBrowser(
+		engine,
+		config,
+		options.headless,
+		options.engine,
+	);
 	try {
-		const browser = await engine.load(browserEngine, headless);
-
-		const context = await browser.newContext({
-			colorScheme: config.colorMode,
-		});
-		const page = await context.newPage();
-
-		const pageSpinner = spinner();
-
-		pageSpinner.start(`Navigating to → ${config.url}`);
-		await page.goto(config.url);
-		pageSpinner.stop(`${chalk.green("✓")} Navigated to → ${config.url}`);
-
 		for (const step of config.flow) {
 			await executeStep(page, step);
 		}
 
 		outro(chalk.green("✅ Workflow completed successfully!"));
 	} catch (error) {
-		handleError(error);
+		handleWorkflowError(error);
 	} finally {
 		await engine.cleanup();
 	}

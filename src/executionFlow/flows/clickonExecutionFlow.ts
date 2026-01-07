@@ -1,21 +1,37 @@
 import { spinner } from "@clack/prompts";
+import { ElementNotFoundError } from "@src/errors/workflowError";
 import type { ClickAction } from "@type/workflowConfig.types";
 import chalk from "chalk";
-import type { Page } from "playwright";
+import type { Locator, Page } from "playwright";
 
 export default async function clickonExecutionFlow(
 	clickOnStep: ClickAction,
 	page: Page,
 ): Promise<void> {
 	const clickSpinner = spinner();
+
+	let targetLocator: Locator;
+	let targetDescription: `text: ${string}` | `selector: ${string}`;
+
 	if (typeof clickOnStep.clickOn === "string") {
-		clickSpinner.start(`Clicking: ${clickOnStep.clickOn}`);
-		await page.getByText(clickOnStep.clickOn).first().click();
-		clickSpinner.stop(`${chalk.green("✓")} Clicked: ${clickOnStep.clickOn}`);
+		targetLocator = page.getByText(clickOnStep.clickOn).first();
+		targetDescription = `text: ${clickOnStep.clickOn}`;
 	} else {
-		const clickSelector = clickOnStep.clickOn.selector;
-		clickSpinner.start(`Clicking: ${clickSelector}`);
-		await page.click(clickSelector);
-		clickSpinner.stop(`${chalk.green("✓")} Clicked: ${clickSelector}`);
+		targetLocator = page.locator(clickOnStep.clickOn.selector);
+		targetDescription = `selector: ${clickOnStep.clickOn.selector}`;
+	}
+
+	clickSpinner.start(`Clicking on element with ${targetDescription}`);
+
+	try {
+		await targetLocator.click();
+		clickSpinner.stop(
+			`${chalk.green("✓")} Clicked on element with ${targetDescription}`,
+		);
+	} catch {
+		clickSpinner.stop(
+			`${chalk.red("✖")} clickOn: Unable to find element with ${targetDescription}`,
+		);
+		throw new ElementNotFoundError(`Element missing: ${targetDescription}`);
 	}
 }
