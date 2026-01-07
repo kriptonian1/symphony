@@ -1,1 +1,2 @@
+bun format-lint:check
 bunx lint-staged --no-stash
