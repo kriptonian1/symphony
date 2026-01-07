@@ -1,5 +1,5 @@
 import { WorkflowSyntaxError } from "@src/errors/workflow-error";
-import { type FlowStep, FlowStepSchema } from "@type/workflowConfig.types";
+import { type FlowStep, FlowStepSchema } from "@type/workflow-config.types";
 import type { Page } from "playwright";
 import z from "zod";
 import { flowRegistry, type stepKeys } from "./flow-registry";

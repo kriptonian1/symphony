@@ -1,5 +1,5 @@
 import type { KeysOfUnion } from "@type/utils";
-import type { FlowStep } from "@type/workflowConfig.types";
+import type { FlowStep } from "@type/workflow-config.types";
 import type { Page } from "playwright-core";
 import {
 	clickonExecutionFlow,

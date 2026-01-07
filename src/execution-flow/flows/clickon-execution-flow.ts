@@ -1,6 +1,6 @@
 import { spinner } from "@clack/prompts";
 import { ElementNotFoundError } from "@src/errors/workflow-error";
-import type { ClickAction } from "@type/workflowConfig.types";
+import type { ClickAction } from "@type/workflow-config.types";
 import chalk from "chalk";
 import type { Locator, Page } from "playwright";
 

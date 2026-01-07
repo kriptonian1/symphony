@@ -1,4 +1,4 @@
-import type { WorkflowConfig } from "@type/workflowConfig.types";
+import type { WorkflowConfig } from "@type/workflow-config.types";
 
 /**
  * Parse the yml file and returns the workflow config object

@@ -1,5 +1,5 @@
 import { spinner } from "@clack/prompts";
-import type { ScrollAction } from "@type/workflowConfig.types";
+import type { ScrollAction } from "@type/workflow-config.types";
 import chalk from "chalk";
 import type { Page } from "playwright";
 

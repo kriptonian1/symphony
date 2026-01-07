@@ -1,5 +1,5 @@
 import { spinner } from "@clack/prompts";
-import type { KeyboardAction } from "@type/workflowConfig.types";
+import type { KeyboardAction } from "@type/workflow-config.types";
 import chalk from "chalk";
 import type { Page } from "playwright";
 

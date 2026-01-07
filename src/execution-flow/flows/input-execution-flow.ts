@@ -1,6 +1,6 @@
 import { spinner } from "@clack/prompts";
 import type { Role } from "@type/role.types";
-import type { InputAction } from "@type/workflowConfig.types";
+import type { InputAction } from "@type/workflow-config.types";
 import chalk from "chalk";
 import type { Page } from "playwright";
 

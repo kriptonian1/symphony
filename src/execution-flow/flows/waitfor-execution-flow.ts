@@ -1,5 +1,5 @@
 import { spinner } from "@clack/prompts";
-import type { WaitForAction } from "@type/workflowConfig.types";
+import type { WaitForAction } from "@type/workflow-config.types";
 import chalk from "chalk";
 import type { Page } from "playwright";
 
