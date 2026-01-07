@@ -1,5 +1,8 @@
+import { BrowserEngineSchema } from "@type/browser-engine";
 import { Command, Option } from "commander";
 import { description, version } from "package.json";
+
+const SUPPORTED_ENGINES = BrowserEngineSchema.options;
 
 /**
  * Initializes and configures the Symphony CLI command.
@@ -22,7 +25,7 @@ export default function initializeCLI(): Command {
 		"--be, --browser-engine <engine>",
 		"Browser engine to use",
 	)
-		.choices(["chromium", "firefox", "webkit"])
+		.choices(SUPPORTED_ENGINES)
 		.default("chromium", "chromium is the default browser engine");
 
 	program.addOption(engineOptions);
