@@ -2,7 +2,7 @@ import { log, outro } from "@clack/prompts";
 import {
 	ElementNotFoundError,
 	WorkflowSyntaxError,
-} from "@src/errors/workflowError";
+} from "@src/errors/workflow-error";
 import chalk from "chalk";
 
 /**

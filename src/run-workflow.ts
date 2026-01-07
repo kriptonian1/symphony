@@ -2,7 +2,7 @@ import { outro } from "@clack/prompts";
 import BrowserManager from "@src/browser/browser-manager";
 import { setupBrowser } from "@src/browser/setup-browser";
 import { handleWorkflowError } from "@src/errors/handle-workflow-error";
-import executeStep from "@src/executionFlow";
+import executeStep from "@src/execution-flow";
 import type { BrowserEngine } from "@type/browserEngine";
 import type { WorkflowConfig } from "@type/workflowConfig.types";
 import chalk from "chalk";

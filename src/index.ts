@@ -1,7 +1,7 @@
 import { intro } from "@clack/prompts";
 import chalk from "chalk";
-import loadWorkflowConfig from "./loadWorkflowConfig";
-import runWorkflow from "./runWorkflow";
+import loadWorkflowConfig from "./load-workflow-config";
+import runWorkflow from "./run-workflow";
 import "playwright-core";
 import initializeCLI from "./command";
 
