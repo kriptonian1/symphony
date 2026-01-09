@@ -3,7 +3,7 @@ import type { BaseFlowParam } from "@type/base-flow.types";
 import type { KeyboardAction } from "@type/workflow-config.types";
 import chalk from "chalk";
 
-export default async function keyboardExecutionFlow({
+export default async function keyboardFlow({
 	step: keyboardStep,
 	page,
 }: BaseFlowParam<KeyboardAction>): Promise<void> {

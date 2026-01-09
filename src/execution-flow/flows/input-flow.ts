@@ -4,7 +4,7 @@ import type { Role } from "@type/role.types";
 import type { InputAction } from "@type/workflow-config.types";
 import chalk from "chalk";
 
-export default async function inputExecutionFlow({
+export default async function inputFlow({
 	step: inputStep,
 	page,
 }: BaseFlowParam<InputAction>): Promise<void> {

@@ -1,13 +1,7 @@
-import clickonExecutionFlow from "./clickon-flow";
-import inputExecutionFlow from "./input-flow";
-import keyboardExecutionFlow from "./keyboard-flow";
-import scrollExecutionFlow from "./scroll-flow";
-import waitforExecutionFlow from "./waitfor-flow";
+import clickonFlow from "./clickon-flow";
+import inputFlow from "./input-flow";
+import keyboardFlow from "./keyboard-flow";
+import scrollFlow from "./scroll-flow";
+import waitforFlow from "./waitfor-flow";
 
-export {
-	clickonExecutionFlow,
-	inputExecutionFlow,
-	keyboardExecutionFlow,
-	scrollExecutionFlow,
-	waitforExecutionFlow,
-};
+export { clickonFlow, inputFlow, keyboardFlow, scrollFlow, waitforFlow };

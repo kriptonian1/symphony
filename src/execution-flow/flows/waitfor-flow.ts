@@ -3,7 +3,7 @@ import type { BaseFlowParam } from "@type/base-flow.types";
 import type { WaitForAction } from "@type/workflow-config.types";
 import chalk from "chalk";
 
-export default async function waitforExecutionFlow({
+export default async function waitforFlow({
 	step: waitforStep,
 	page,
 }: BaseFlowParam<WaitForAction>): Promise<void> {

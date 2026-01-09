@@ -2,7 +2,7 @@ import { WorkflowSyntaxError } from "@src/errors/workflow-error";
 import { type FlowStep, FlowStepSchema } from "@type/workflow-config.types";
 import type { Page } from "playwright";
 import z from "zod";
-import { flowRegistry, type stepKeys } from "./flow-registry";
+import { flowRegistry, type StepKeys } from "./flow-registry";
 
 export default async function executeStep(
 	page: Page,
@@ -15,7 +15,7 @@ export default async function executeStep(
 		throw new WorkflowSyntaxError(`${keys} step is invalid`);
 	}
 
-	const stepKey = Object.keys(step)[0] as stepKeys;
+	const stepKey = Object.keys(step)[0] as StepKeys;
 
-	await flowRegistry[stepKey](step, page);
+	await flowRegistry[stepKey]({ step, page });
 }

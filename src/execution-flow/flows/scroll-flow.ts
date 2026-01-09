@@ -28,7 +28,7 @@ async function handleScrollSpeed(
 	}
 }
 
-export default async function scrollExecutionFlow({
+export default async function scrollFlow({
 	step: scrollStep,
 	page,
 }: BaseFlowParam<ScrollAction>): Promise<void> {

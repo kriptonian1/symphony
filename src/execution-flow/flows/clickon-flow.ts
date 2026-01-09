@@ -5,7 +5,7 @@ import type { ClickAction } from "@type/workflow-config.types";
 import chalk from "chalk";
 import type { Locator } from "playwright";
 
-export default async function clickonExecutionFlow({
+export default async function clickonFlow({
 	step: clickOnStep,
 	page,
 }: BaseFlowParam<ClickAction>): Promise<void> {
