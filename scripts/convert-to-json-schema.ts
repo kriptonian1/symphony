@@ -1,5 +1,5 @@
 import * as z from "zod";
-import { WorkflowConfigSchema } from "../types/workflowConfig.types";
+import { WorkflowConfigSchema } from "../types/workflow-config.types";
 
 const jsonSchema = z.toJSONSchema(WorkflowConfigSchema);
 
