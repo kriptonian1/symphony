@@ -8,5 +8,6 @@ flow:
     - scroll:
           direction: down
     - clickOn: Resume
+    - isVisible: "Kolkata"
     - waitFor:
           duration: 5000
