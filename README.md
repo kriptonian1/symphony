@@ -2,7 +2,7 @@
 
 > E2E testing made effortless for web
 
-Symphony is tool to help you write E2E test like human, it use a YMAL to define tests 
+Symphony is tool to help you write E2E test like human, it use a YAML to define tests 
 
 <p align="center">
   <a href="https://github.com/user-attachments/assets/4ccc9a61-8135-430c-b7a3-929033fe6fc7">
