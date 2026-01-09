@@ -1,5 +1,5 @@
 import { spinner } from "@clack/prompts";
-import type { BrowserEngine } from "@type/browser-engine";
+import type { BrowserEngine } from "@type/browser-engine.type";
 import type { WorkflowConfig } from "@type/workflow-config.types";
 import chalk from "chalk";
 import type { Browser, BrowserContext, Page } from "playwright-core";

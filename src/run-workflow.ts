@@ -3,7 +3,7 @@ import BrowserManager from "@src/browser/browser-manager";
 import { setupBrowser } from "@src/browser/setup-browser";
 import { handleWorkflowError } from "@src/errors/handle-workflow-error";
 import executeStep from "@src/execution-flow";
-import type { BrowserEngine } from "@type/browser-engine";
+import type { BrowserEngine } from "@type/browser-engine.type";
 import type { WorkflowConfig } from "@type/workflow-config.types";
 import chalk from "chalk";
 

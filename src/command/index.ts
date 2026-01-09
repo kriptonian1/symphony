@@ -1,4 +1,4 @@
-import { BrowserEngineSchema } from "@type/browser-engine";
+import { BrowserEngineSchema } from "@type/browser-engine.type";
 import { Command, Option } from "commander";
 import { description, version } from "package.json";
 

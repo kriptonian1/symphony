@@ -1,5 +1,5 @@
 import type { BaseFlowParam } from "@type/base-flow.types";
-import type { KeysOfUnion } from "@type/utils";
+import type { KeysOfUnion } from "@type/utils.types";
 import type { FlowStep } from "@type/workflow-config.types";
 import {
 	clickonFlow,

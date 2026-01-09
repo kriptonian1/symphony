@@ -1,4 +1,4 @@
-import type { BrowserEngine } from "@type/browser-engine";
+import type { BrowserEngine } from "@type/browser-engine.type";
 import { type Browser, chromium, firefox, webkit } from "playwright";
 
 export default class BrowserManager {
