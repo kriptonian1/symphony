@@ -8,6 +8,7 @@ import {
 	scrollFlow,
 	waitforFlow,
 } from "./flows";
+import isVisibleFlow from "./flows/isvisible-flow";
 
 export type StepKeys = KeysOfUnion<FlowStep>;
 
@@ -20,4 +21,5 @@ export const flowRegistry: Record<StepKeys, FlowFunction> = {
 	waitFor: waitforFlow,
 	keyboard: keyboardFlow,
 	scroll: scrollFlow,
+	isVisible: isVisibleFlow,
 };

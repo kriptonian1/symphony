@@ -87,12 +87,17 @@ export const ScrollActionSchema = z
 	})
 	.meta(jsonSchemaMeta.flow.scroll.description);
 
+export const IsVisibleActionSchema = z.object({
+	isVisible: z.union([z.string(), z.object({ selector: z.string() })]),
+});
+
 export const FlowStepSchema = z.union([
 	InputActionSchema,
 	ClickActionSchema,
 	WaitForActionSchema,
 	KeyboardActionSchema,
 	ScrollActionSchema,
+	IsVisibleActionSchema,
 ]);
 
 export const WorkflowConfigSchema = z
@@ -120,3 +125,4 @@ export type ClickAction = z.infer<typeof ClickActionSchema>;
 export type WaitForAction = z.infer<typeof WaitForActionSchema>;
 export type KeyboardAction = z.infer<typeof KeyboardActionSchema>;
 export type ScrollAction = z.infer<typeof ScrollActionSchema>;
+export type IsVisibleAction = z.infer<typeof IsVisibleActionSchema>;
