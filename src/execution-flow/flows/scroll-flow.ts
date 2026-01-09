@@ -1,7 +1,7 @@
 import { spinner } from "@clack/prompts";
+import type { BaseFlowParam } from "@type/base-flow.types";
 import type { ScrollAction } from "@type/workflow-config.types";
 import chalk from "chalk";
-import type { Page } from "playwright";
 
 async function handleScrollSpeed(
 	speed: number | undefined = 300,
@@ -28,10 +28,10 @@ async function handleScrollSpeed(
 	}
 }
 
-export default async function scrollExecutionFlow(
-	scrollStep: ScrollAction,
-	page: Page,
-): Promise<void> {
+export default async function scrollExecutionFlow({
+	step: scrollStep,
+	page,
+}: BaseFlowParam<ScrollAction>): Promise<void> {
 	if ("direction" in scrollStep.scroll) {
 		const scrollSpinner = spinner();
 		scrollSpinner.start(`Scrolling ${scrollStep.scroll.direction}`);

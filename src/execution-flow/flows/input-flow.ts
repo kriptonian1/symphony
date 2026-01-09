@@ -1,13 +1,13 @@
 import { spinner } from "@clack/prompts";
+import type { BaseFlowParam } from "@type/base-flow.types";
 import type { Role } from "@type/role.types";
 import type { InputAction } from "@type/workflow-config.types";
 import chalk from "chalk";
-import type { Page } from "playwright";
 
-export default async function inputExecutionFlow(
-	inputStep: InputAction,
-	page: Page,
-): Promise<void> {
+export default async function inputExecutionFlow({
+	step: inputStep,
+	page,
+}: BaseFlowParam<InputAction>): Promise<void> {
 	const inputSelector = inputStep.input.selector;
 	const inputSpinner = spinner();
 	inputSpinner.start(`Filling input: ${inputSelector}`);

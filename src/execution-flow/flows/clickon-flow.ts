@@ -1,13 +1,14 @@
 import { spinner } from "@clack/prompts";
 import { ElementNotFoundError } from "@src/errors/workflow-error";
+import type { BaseFlowParam } from "@type/base-flow.types";
 import type { ClickAction } from "@type/workflow-config.types";
 import chalk from "chalk";
-import type { Locator, Page } from "playwright";
+import type { Locator } from "playwright";
 
-export default async function clickonExecutionFlow(
-	clickOnStep: ClickAction,
-	page: Page,
-): Promise<void> {
+export default async function clickonExecutionFlow({
+	step: clickOnStep,
+	page,
+}: BaseFlowParam<ClickAction>): Promise<void> {
 	const clickSpinner = spinner();
 
 	let targetLocator: Locator;
