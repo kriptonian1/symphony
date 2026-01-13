@@ -36,8 +36,12 @@ if [ -f "$TARGET_FILE" ]; then
     SEARCH='/home/runner/work/symphony/symphony/node_modules/playwright-core/package.json'
     REPLACE='playwright-core/package.json'
     
-    # Apply the string replacement (macOS compatible sed)
-    sed -i '' "s|$SEARCH|$REPLACE|g" "$TARGET_FILE"
+    # Apply the string replacement (OS dependent)
+    if [[ "$(uname)" == "Darwin" ]]; then
+        sed -i '' "s|$SEARCH|$REPLACE|g" "$TARGET_FILE"
+    else
+        sed -i "s|$SEARCH|$REPLACE|g" "$TARGET_FILE"
+    fi
     
     echo "✅ Success! The path has been corrected."
 else
