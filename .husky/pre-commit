@@ -1,2 +1,2 @@
-bun format-lint:check
+bun format-lint:check --error-on-warnings
 bunx lint-staged --no-stash
