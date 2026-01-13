@@ -88,7 +88,14 @@ export const ScrollActionSchema = z
 	.meta(jsonSchemaMeta.flow.scroll.description);
 
 export const IsVisibleActionSchema = z.object({
-	isVisible: z.union([z.string(), z.object({ selector: z.string() })]),
+	isVisible: z
+		.union([
+			z.string().meta(jsonSchemaMeta.flow.isVisible.string),
+			z.object({
+				selector: z.string().meta(jsonSchemaMeta.flow.isVisible.selector),
+			}),
+		])
+		.meta(jsonSchemaMeta.flow.isVisible.description),
 });
 
 export const FlowStepSchema = z.union([

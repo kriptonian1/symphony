@@ -7,6 +7,8 @@ flow:
     - scroll:
           direction: down
           speed: 100
+    - isVisible: 
+            selector: a:has-text("Get started"):visible
     - waitFor:
           duration: 3000
     - keyboard:
@@ -16,6 +18,7 @@ flow:
           value: "padding"
     - waitFor:
           duration: 5000
+    - isVisible: padding
     - keyboard:
           key: Enter
     - clickOn: Show more
@@ -24,6 +27,8 @@ flow:
     - waitFor:
           duration: 3000
     - clickOn: Blog
+    - isVisible:
+              selector: h1:text("Latest Updates")
     - scroll:
           direction: down
     - waitFor:

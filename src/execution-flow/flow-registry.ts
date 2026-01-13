@@ -4,11 +4,11 @@ import type { FlowStep } from "@type/workflow-config.types";
 import {
 	clickonFlow,
 	inputFlow,
+	isVisibleFlow,
 	keyboardFlow,
 	scrollFlow,
 	waitforFlow,
 } from "./flows";
-import isVisibleFlow from "./flows/isvisible-flow";
 
 export type StepKeys = KeysOfUnion<FlowStep>;
 
