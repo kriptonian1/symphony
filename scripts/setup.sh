@@ -10,7 +10,12 @@ echo "🚀 Starting setup..."
 
 # Install Playwright browsers
 echo "Installing Playwright browsers..."
-npx -y playwright@1.56.0 install chromium webkit firefox
+if [[ "$(uname)" == "Darwin" ]]; then
+    npx -y playwright@1.56.0 install chromium webkit firefox
+else
+    npm install playwright@1.56.0
+    npx playwright install chromium webkit firefox
+fi
 
 # 2. Check if the patch is needed
 if [ -z "$TARGET_FILE" ]; then
