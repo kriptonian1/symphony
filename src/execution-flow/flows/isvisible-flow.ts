@@ -1,8 +1,5 @@
 import { spinner } from "@clack/prompts";
-import {
-	ElementNotFoundError,
-	FailedAssertionError,
-} from "@src/errors/workflow-error";
+import { FailedAssertionError } from "@src/errors/workflow-error";
 import type { BaseFlowParam } from "@type/base-flow.types";
 import type { IsVisibleAction } from "@type/workflow-config.types";
 import chalk from "chalk";
