@@ -60,15 +60,27 @@ You’re ready to roll! 🎉
 
 #### 📦 NPM install
 
-If you prefer installing through npm or are on Windows/Linux:
+If you prefer installing through npm or are on Windows/Linux/MacOS, run the following command:
 
 ```
 npm install -g @kriptonian/symphony
 ```
 then run the following command to setup symphony
+1. If you're on Linux or MacOS, run:
 ```sh
 curl -sL https://raw.githubusercontent.com/kriptonian1/symphony/refs/heads/develop/scripts/setup.sh | bash
 ```
+2. If you're on Windows, run:
+```ps1
+iwr -useb https://raw.githubusercontent.com/kriptonian1/symphony/refs/heads/develop/scripts/setup.ps1 | iex
+```
+> [!tip]
+> **For Windows Users:** If you encounter a permission error, run the following command first:
+> ```ps1
+> Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+> ```
+> Then go to step 2 above to run the setup script.
+>
 
 Then check your installation:
 
