@@ -70,6 +70,9 @@ then run the following command to setup symphony
 ```sh
 curl -sL https://raw.githubusercontent.com/kriptonian1/symphony/refs/heads/develop/scripts/setup.sh | bash
 ```
+> [!warning]
+> Playwright browser extension is broken for windows. We will fix this soon.
+> 
 2. If you're on Windows, run:
 ```ps1
 iwr -useb https://raw.githubusercontent.com/kriptonian1/symphony/refs/heads/develop/scripts/setup.ps1 | iex
