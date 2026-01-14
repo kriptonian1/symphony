@@ -1,4 +1,5 @@
 import type z from "zod";
+import { is } from "zod/v4/locales";
 
 // biome-ignore lint/suspicious/noExplicitAny: we need any type here
 type Meta = Parameters<z.ZodType<any, any, any>["meta"]>[0];
@@ -238,6 +239,17 @@ const isTitleTitleOrRegexMeta: Meta = {
 		'Expected page title as a string or regular expression.\n\n**Usage**  \nChecks if the current page title matches the specified string exactly or matches the provided regular expression pattern.\n\n**Examples**\n- `"Home - My Website"` — Checks for exact title match\n- `/^Dashboard - User \\d+$/` — Checks if title matches regex pattern\n\n**Common Use Cases**\n```yaml\n- isTitle: "Login - My App"          # Exact title match\n```\n\n```yaml\n- isTitle: /^Profile - User \\w+$/    # Regex title match\n```',
 };
 
+const isURLMeta: Meta = {
+	title: "isURL Action",
+	description:
+		"Defines a URL check action that verifies whether the current page URL matches the expected URL.",
+};
+
+const isURLTitleOrRegexMeta: Meta = {
+	markdownDescription:
+		'Expected page URL as a string or regular expression.\n\n**Usage**  \nChecks if the current page URL matches the specified string exactly or matches the provided regular expression pattern.\n\n**Examples**\n- `"https://example.com/home"` — Checks for exact URL match\n- `/^https:\\/\\/example\\.com\\/user\\/\\d+$/` — Checks if URL matches regex pattern\n\n**Common Use Cases**\n```yaml\n- isURL: "https://example.com/dashboard"          # Exact URL match\n```\n\n```yaml\n- isURL: /^https:\\/\\/example\\.com\\/profile\\/\\w+$/    # Regex URL match\n```',
+};
+
 /**
  * Descriptions for JSON schema properties used in Zod schemas.
  */
@@ -283,6 +295,10 @@ export const jsonSchemaMeta = {
 		isTitle: {
 			description: isTitleMeta,
 			titleOrRegex: isTitleTitleOrRegexMeta,
+		},
+		isURL: {
+			description: isURLMeta,
+			titleOrRegex: isURLTitleOrRegexMeta,
 		},
 	},
 };

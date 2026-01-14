@@ -5,6 +5,7 @@ import {
 	clickonFlow,
 	inputFlow,
 	isTitleFlow,
+	isURLFlow,
 	isVisibleFlow,
 	keyboardFlow,
 	scrollFlow,
@@ -24,4 +25,5 @@ export const flowRegistry: Record<StepKeys, FlowFunction> = {
 	scroll: scrollFlow,
 	isVisible: isVisibleFlow,
 	isTitle: isTitleFlow,
+	isURL: isURLFlow,
 };

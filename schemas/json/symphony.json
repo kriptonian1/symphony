@@ -331,6 +331,21 @@
               "isTitle"
             ],
             "additionalProperties": false
+          },
+          {
+            "title": "isURL Action",
+            "description": "Defines a URL check action that verifies whether the current page URL matches the expected URL.",
+            "type": "object",
+            "properties": {
+              "isURL": {
+                "markdownDescription": "Expected page URL as a string or regular expression.\n\n**Usage**  \nChecks if the current page URL matches the specified string exactly or matches the provided regular expression pattern.\n\n**Examples**\n- `\"https://example.com/home\"` — Checks for exact URL match\n- `/^https:\\/\\/example\\.com\\/user\\/\\d+$/` — Checks if URL matches regex pattern\n\n**Common Use Cases**\n```yaml\n- isURL: \"https://example.com/dashboard\"          # Exact URL match\n```\n\n```yaml\n- isURL: /^https:\\/\\/example\\.com\\/profile\\/\\w+$/    # Regex URL match\n```",
+                "type": "string"
+              }
+            },
+            "required": [
+              "isURL"
+            ],
+            "additionalProperties": false
           }
         ]
       }
