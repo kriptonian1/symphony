@@ -6,8 +6,8 @@ try {
     # 2>&1 redirects stderr to stdout in PowerShell
     $symphonyOutput = symphony --help 2>&1 | Out-String
     
-    # Regex to match: from '/path/to/file'
-    if ($symphonyOutput -match "from '([^']*)'") {
+    # Regex to match: from '/path/to/file' or from "path/to/file"
+    if ($symphonyOutput -match "from ['""]([^'""]*)['""]") {
         $TARGET_FILE = $matches[1]
     } else {
         $TARGET_FILE = $null
@@ -25,13 +25,13 @@ npx playwright install chromium webkit firefox
 # 2. Check if the patch is needed
 if (-not $TARGET_FILE) {
     Write-Host "✅ Setup is already done or target file not found. No patch needed."
-    exit 0
+    return
 }
 
 # 3. Add playwright-core
 # check if installed globally
-npm list -g playwright-core 2>$null
-if ($LASTEXITCODE -ne 0) {
+$pkgCheck = npm list -g playwright-core --depth=0 2>$null | Out-String
+if ($pkgCheck -notmatch "playwright-core@") {
     Write-Host "Adding playwright-core globally..."
     npm install -g playwright-core
 } else {
