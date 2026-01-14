@@ -227,6 +227,17 @@ const isVisibleSelectorMeta: Meta = {
 		'**CSS Selector** — `selector:` property  \nUses advanced CSS selector syntax to precisely target elements for visibility checks. Supports Playwright\'s extended CSS selectors including text matching, visibility filters, and pseudo-classes.\n\n**Standard CSS Selectors:**\n```yaml\n- isVisible:\n    selector: "#login-button"        # Check element by ID\n- isVisible:\n    selector: ".modal-header"        # Check element by class\n- isVisible:\n    selector: \'button[type="submit"]\' # Check by attribute\n```\n\n**Playwright Extended Selectors:**\n\n`:text("...")` — Match elements containing specific text\n```yaml\n- isVisible:\n    selector: \'h1:text("Latest Updates")\'  # Check h1 with exact text\n- isVisible:\n    selector: \'button:text("Sign Up")\'     # Check button containing text\n```\n\n`:has-text("...")` — Match elements with substring (case-insensitive)\n```yaml\n- isVisible:\n    selector: \'a:has-text("Get started"):visible\'  # Check visible link\n- isVisible:\n    selector: \'div:has-text("Error")\'              # Check div with "Error"\n```\n\n`:visible` — Filter to only visible elements\n```yaml\n- isVisible:\n    selector: \'button:visible\'           # Check if button is visible\n- isVisible:\n    selector: \'.notification:visible\'   # Check visible notification\n```\n\n`:has()` — Match elements containing specific descendants\n```yaml\n- isVisible:\n    selector: \'form:has(input[type="email"])\'  # Check form with email input\n```\n\n**Combining Selectors:**\n```yaml\n- isVisible:\n    selector: \'a:has-text("Get started"):visible\'  # Visible link with text\n- isVisible:\n    selector: \'div.card:has(h2:text("Title"))\'     # Card div with h2 title\n```\n\n**Common Use Cases:**\n```yaml\n# Check if success message appears\n- isVisible:\n    selector: \'.alert-success:visible\'\n\n# Verify modal is displayed\n- isVisible:\n    selector: \'#modal:has-text("Confirm")\'  \n\n# Check navigation link is visible\n- isVisible:\n    selector: \'nav a:text("Dashboard"):visible\'\n\n# Verify error message\n- isVisible: "Error: Invalid credentials"\n```\n\n**Learn More:**  \n📺 [Playwright CSS Selectors Guide](https://youtu.be/nN3bS5WJax0?si=GQ7nXW1Te5QvOn7V) — Comprehensive tutorial on Playwright\'s CSS selector capabilities\n\n**Note:** The visibility check will wait for the element to become visible (up to the default timeout) before failing, making it reliable for dynamic content that may take time to appear.',
 };
 
+const isTitleMeta: Meta = {
+	title: "isTitle Action",
+	description:
+		"Defines a title check action that verifies whether the page title matches the expected title.",
+};
+
+const isTitleTitleOrRegexMeta: Meta = {
+	markdownDescription:
+		'Expected page title as a string or regular expression.\n\n**Usage**  \nChecks if the current page title matches the specified string exactly or matches the provided regular expression pattern.\n\n**Examples**\n- `"Home - My Website"` — Checks for exact title match\n- `/^Dashboard - User \\d+$/` — Checks if title matches regex pattern\n\n**Common Use Cases**\n```yaml\n- isTitle: "Login - My App"          # Exact title match\n```\n\n```yaml\n- isTitle: /^Profile - User \\w+$/    # Regex title match\n```',
+};
+
 /**
  * Descriptions for JSON schema properties used in Zod schemas.
  */
@@ -268,6 +279,10 @@ export const jsonSchemaMeta = {
 			description: isVisibleMeta,
 			string: isVisibleStringMeta,
 			selector: isVisibleSelectorMeta,
+		},
+		isTitle: {
+			description: isTitleMeta,
+			titleOrRegex: isTitleTitleOrRegexMeta,
 		},
 	},
 };

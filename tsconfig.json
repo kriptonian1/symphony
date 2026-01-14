@@ -15,7 +15,8 @@
 			"@src/*": ["./src/*"],
 			"@type/*": ["./types/*"],
 			"@constants/*": ["./constants/*"],
-			"@scripts/*": ["./scripts/*"]
+			"@scripts/*": ["./scripts/*"],
+			"@utils/*": ["./utils/*"]
 		}
 	},
 	"include": ["src", "types"],

@@ -316,6 +316,21 @@
               "isVisible"
             ],
             "additionalProperties": false
+          },
+          {
+            "title": "isTitle Action",
+            "description": "Defines a title check action that verifies whether the page title matches the expected title.",
+            "type": "object",
+            "properties": {
+              "isTitle": {
+                "markdownDescription": "Expected page title as a string or regular expression.\n\n**Usage**  \nChecks if the current page title matches the specified string exactly or matches the provided regular expression pattern.\n\n**Examples**\n- `\"Home - My Website\"` — Checks for exact title match\n- `/^Dashboard - User \\d+$/` — Checks if title matches regex pattern\n\n**Common Use Cases**\n```yaml\n- isTitle: \"Login - My App\"          # Exact title match\n```\n\n```yaml\n- isTitle: /^Profile - User \\w+$/    # Regex title match\n```",
+                "type": "string"
+              }
+            },
+            "required": [
+              "isTitle"
+            ],
+            "additionalProperties": false
           }
         ]
       }

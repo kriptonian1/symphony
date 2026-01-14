@@ -9,6 +9,7 @@ flow:
           speed: 100
     - isVisible: 
             selector: a:has-text("Get started"):visible
+    - isTitle: "Tailwind CSS - Rapidly build modern websites without ever leaving your HTML."
     - waitFor:
           duration: 3000
     - keyboard:
@@ -29,6 +30,7 @@ flow:
     - clickOn: Blog
     - isVisible:
               selector: h1:text("Latest Updates")
+    - isTitle: /^[A-Za-z]+ - Tailwind CSS$/
     - scroll:
           direction: down
     - waitFor:

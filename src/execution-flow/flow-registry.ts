@@ -4,6 +4,7 @@ import type { FlowStep } from "@type/workflow-config.types";
 import {
 	clickonFlow,
 	inputFlow,
+	isTitleFlow,
 	isVisibleFlow,
 	keyboardFlow,
 	scrollFlow,
@@ -22,4 +23,5 @@ export const flowRegistry: Record<StepKeys, FlowFunction> = {
 	keyboard: keyboardFlow,
 	scroll: scrollFlow,
 	isVisible: isVisibleFlow,
+	isTitle: isTitleFlow,
 };
