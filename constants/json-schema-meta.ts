@@ -1,5 +1,4 @@
 import type z from "zod";
-import { is } from "zod/v4/locales";
 
 // biome-ignore lint/suspicious/noExplicitAny: we need any type here
 type Meta = Parameters<z.ZodType<any, any, any>["meta"]>[0];
