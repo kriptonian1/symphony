@@ -1,4 +1,4 @@
-import type { BaseFlowParam, FlowHandler } from "@type/base-flow.types";
+import type { FlowHandler } from "@type/base-flow.types";
 import type { KeysOfUnion } from "@type/utils.types";
 import type { FlowStep } from "@type/workflow-config.types";
 import {
