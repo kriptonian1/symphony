@@ -1,4 +1,4 @@
-import type { BaseFlowParam } from "@type/base-flow.types";
+import type { BaseFlowParam, FlowHandler } from "@type/base-flow.types";
 import type { KeysOfUnion } from "@type/utils.types";
 import type { FlowStep } from "@type/workflow-config.types";
 import {
@@ -11,10 +11,11 @@ import {
 
 export type StepKeys = KeysOfUnion<FlowStep>;
 
-// biome-ignore lint/suspicious/noExplicitAny: Using any for dynamic function mapping
-type FlowFunction = ({ step, page }: BaseFlowParam<any>) => Promise<void>;
+export type FlowRegistry = {
+	[K in StepKeys]: FlowHandler<K>;
+};
 
-export const flowRegistry: Record<StepKeys, FlowFunction> = {
+export const flowRegistry: FlowRegistry = {
 	input: inputFlow,
 	clickOn: clickonFlow,
 	waitFor: waitforFlow,

@@ -1,4 +1,5 @@
 import { WorkflowSyntaxError } from "@src/errors/workflow-error";
+import type { ActionForKey } from "@type/base-flow.types";
 import { type FlowStep, FlowStepSchema } from "@type/workflow-config.types";
 import type { Page } from "playwright";
 import z from "zod";
@@ -17,5 +18,14 @@ export default async function executeStep(
 
 	const stepKey = Object.keys(step)[0] as StepKeys;
 
-	await flowRegistry[stepKey]({ step, page });
+	await executeFlowForKey(page, step, stepKey);
+}
+
+async function executeFlowForKey<K extends StepKeys>(
+	page: Page,
+	step: FlowStep,
+	key: K,
+): Promise<void> {
+	const handler = flowRegistry[key];
+	await handler({ step: step as ActionForKey<K>, page });
 }
