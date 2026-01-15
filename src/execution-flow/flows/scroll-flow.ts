@@ -4,9 +4,9 @@ import type { ScrollAction } from "@type/workflow-config.types";
 import chalk from "chalk";
 
 async function handleScrollSpeed(
-	speed: number | undefined = 300,
 	amount: number,
 	onScrollIteration: (deltaY: number) => Promise<void>,
+	speed: number = 300,
 ) {
 	const sleep = (ms: number) => new Promise((res) => setTimeout(res, ms));
 	if (speed && speed > 0) {
@@ -40,9 +40,13 @@ export default async function scrollFlow({
 
 		const speed = scrollStep.scroll.speed; // pixels per second
 
-		await handleScrollSpeed(speed, amount, async (deltaY) => {
-			await page.mouse.wheel(0, deltaY);
-		});
+		await handleScrollSpeed(
+			amount,
+			async (deltaY) => {
+				await page.mouse.wheel(0, deltaY);
+			},
+			speed,
+		);
 		scrollSpinner.stop(`${chalk.green("✓")} Scrolled ${direction}`);
 	}
 	if ("position" in scrollStep.scroll) {
