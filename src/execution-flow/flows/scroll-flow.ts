@@ -28,6 +28,16 @@ async function handleScrollSpeed(
 	}
 }
 
+function getScrollDistance(direction: "up" | "down"): number {
+	let amount = 0;
+	if (direction === "down") {
+		amount = 200;
+	} else if (direction === "up") {
+		amount = -100;
+	}
+	return amount;
+}
+
 export default async function scrollFlow({
 	step: scrollStep,
 	page,
@@ -36,7 +46,7 @@ export default async function scrollFlow({
 		const scrollSpinner = spinner();
 		scrollSpinner.start(`Scrolling ${scrollStep.scroll.direction}`);
 		const direction = scrollStep.scroll.direction;
-		const amount = direction === "down" ? 200 : direction === "up" ? -100 : 0;
+		const amount = getScrollDistance(direction);
 
 		const speed = scrollStep.scroll.speed; // pixels per second
 
