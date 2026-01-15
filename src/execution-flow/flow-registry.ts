@@ -1,6 +1,3 @@
-import type { BaseFlowParam } from "@type/base-flow.types";
-import type { KeysOfUnion } from "@type/utils.types";
-import type { FlowStep } from "@type/workflow-config.types";
 import {
 	clickonFlow,
 	inputFlow,
@@ -10,7 +7,10 @@ import {
 	keyboardFlow,
 	scrollFlow,
 	waitforFlow,
-} from "./flows";
+} from "@src/execution-flow/flows";
+import type { BaseFlowParam } from "@type/base-flow.types";
+import type { KeysOfUnion } from "@type/utils.types";
+import type { FlowStep } from "@type/workflow-config.types";
 
 export type StepKeys = KeysOfUnion<FlowStep>;
 
