@@ -22,9 +22,32 @@ Symphony is tool to help you write E2E test like human, it use a YAML to define 
 
 ---
 
+## Why Symphony?
+Symphony is built on a simple belief: end-to-end testing should feel like talking to a human, not programming a machine.
 
+Today, front end E2E testing tools force users to think in code, frameworks, and technical abstractions. But real testing starts from a much simpler place, how a user behaves. A user doesn’t think in JavaScript, Playwright APIs, or Cypress commands. They think in actions:
 
+<p align="center">
+“Open the app → log in → click buy → make sure it worked.”
+</p>
 
+Symphony believes that writing tests should be as easy as describing behavior in plain English.
+
+We want E2E testing to:
+- Be language-agnostic, not tied to JavaScript or any one tech stack
+- Work for non-technical users, not just QA engineers
+- Adapt naturally to real user flows, not brittle selectors
+- Reduce cognitive load so teams focus on what to test, not how to write it
+
+In an ideal world:
+- A QA engineer, product manager, or frontend developer can write a test without learning a new framework
+- A test reads like a conversation, not a script
+- Tests are resilient, human-like, and easy to maintain
+- Adoption doesn’t require weeks of learning or heavy setup
+
+Symphony is designed to be that layer, a human-first interface for E2E testing, where intent matters more than syntax.
+
+## How to install
 
 ### 🧩 Prerequisites
 
