@@ -32,8 +32,7 @@ export function createFlow<T extends FlowStep>({
 	onError,
 	getErrorMessage,
 }: FlowConfig<T>) {
-	return async (params: BaseFlowParam<T>): Promise<void> => {
-		const { step, page } = params;
+	return async ({ page, step }: BaseFlowParam<T>): Promise<void> => {
 		const flowSpinner = spinner();
 		const message = getMessage(step);
 
