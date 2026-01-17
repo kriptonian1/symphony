@@ -1,6 +1,7 @@
 import { log, outro } from "@clack/prompts";
 import {
 	ElementNotFoundError,
+	FailedAssertionError,
 	WorkflowSyntaxError,
 } from "@src/errors/workflow-error";
 import chalk from "chalk";
@@ -24,6 +25,8 @@ export function handleWorkflowError(error: unknown) {
 			),
 		);
 	} else if (error instanceof ElementNotFoundError) {
+		outro(chalk.red(`✖ Workflow Failed: ${error.message}`));
+	} else if (error instanceof FailedAssertionError) {
 		outro(chalk.red(`✖ Workflow Failed: ${error.message}`));
 	} else {
 		log.error(chalk.red("An unexpected error occurred."));

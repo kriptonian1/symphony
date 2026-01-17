@@ -1,5 +1,7 @@
+import { log } from "@clack/prompts";
 import { WorkflowSyntaxError } from "@src/errors/workflow-error";
 import { type FlowStep, FlowStepSchema } from "@type/workflow-config.types";
+import chalk from "chalk";
 import type { Page } from "playwright";
 import z from "zod";
 import { flowRegistry, type StepKeys } from "./flow-registry";
@@ -11,7 +13,9 @@ export default async function executeStep(
 	const { success, error } = FlowStepSchema.safeParse(step);
 	if (!success) {
 		const keys = Object.keys(step).join(", ");
-		console.error(`${z.prettifyError(error)}: \`${keys}\` step is invalid`);
+		log.error(
+			chalk.red(`${z.prettifyError(error)}: \`${keys}\` step is invalid`),
+		);
 		throw new WorkflowSyntaxError(`${keys} step is invalid`);
 	}
 

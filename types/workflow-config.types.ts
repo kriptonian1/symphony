@@ -87,12 +87,62 @@ export const ScrollActionSchema = z
 	})
 	.meta(jsonSchemaMeta.flow.scroll.description);
 
+export const IsVisibleActionSchema = z.object({
+	isVisible: z
+		.union([
+			z.string().meta(jsonSchemaMeta.flow.isVisible.string),
+			z.object({
+				selector: z.string().meta(jsonSchemaMeta.flow.isVisible.selector),
+			}),
+		])
+		.meta(jsonSchemaMeta.flow.isVisible.description),
+});
+
+export const IsTitleActionSchema = z
+	.object({
+		isTitle: z.string().meta(jsonSchemaMeta.flow.isTitle.titleOrRegex),
+	})
+	.meta(jsonSchemaMeta.flow.isTitle.description);
+
+export const IsURLActionSchema = z
+	.object({
+		isURL: z.string().meta(jsonSchemaMeta.flow.isURL.titleOrRegex),
+	})
+	.meta(jsonSchemaMeta.flow.isURL.description);
+
+export const IsNotVisibleSchema = z
+	.object({
+		isNotVisible: z.union([
+			z.string().meta(jsonSchemaMeta.flow.isNotVisible.string),
+			z.object({
+				selector: z.string().meta(jsonSchemaMeta.flow.isNotVisible.selector),
+			}),
+		]),
+	})
+	.meta(jsonSchemaMeta.flow.isNotVisible.description);
+
+export const IsDisabledSchema = z
+	.object({
+		isDisabled: z.union([
+			z.string().meta(jsonSchemaMeta.flow.isDisabled.string),
+			z.object({
+				selector: z.string().meta(jsonSchemaMeta.flow.isDisabled.selector),
+			}),
+		]),
+	})
+	.meta(jsonSchemaMeta.flow.isDisabled.description);
+
 export const FlowStepSchema = z.union([
 	InputActionSchema,
 	ClickActionSchema,
 	WaitForActionSchema,
 	KeyboardActionSchema,
 	ScrollActionSchema,
+	IsVisibleActionSchema,
+	IsTitleActionSchema,
+	IsURLActionSchema,
+	IsNotVisibleSchema,
+	IsDisabledSchema,
 ]);
 
 export const WorkflowConfigSchema = z
@@ -120,3 +170,8 @@ export type ClickAction = z.infer<typeof ClickActionSchema>;
 export type WaitForAction = z.infer<typeof WaitForActionSchema>;
 export type KeyboardAction = z.infer<typeof KeyboardActionSchema>;
 export type ScrollAction = z.infer<typeof ScrollActionSchema>;
+export type IsVisibleAction = z.infer<typeof IsVisibleActionSchema>;
+export type IsTitleAction = z.infer<typeof IsTitleActionSchema>;
+export type IsURLAction = z.infer<typeof IsURLActionSchema>;
+export type IsNotVisibleAction = z.infer<typeof IsNotVisibleSchema>;
+export type IsDisabledAction = z.infer<typeof IsDisabledSchema>;

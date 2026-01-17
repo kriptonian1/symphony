@@ -32,3 +32,10 @@ export class WorkflowSyntaxError extends WorkflowError {}
  * for cases where an expected element is missing.
  */
 export class ElementNotFoundError extends WorkflowError {}
+
+/**
+ * Error thrown when a workflow assertion fails.
+ *
+ * Extends {@link WorkflowError} to represent assertion failures within workflow execution.
+ */
+export class FailedAssertionError extends WorkflowError {}
