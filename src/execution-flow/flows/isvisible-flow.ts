@@ -1,41 +1,57 @@
-import { spinner } from "@clack/prompts";
 import { FailedAssertionError } from "@src/errors/workflow-error";
 import type { BaseFlowParam } from "@type/base-flow.types";
 import type { IsVisibleAction } from "@type/workflow-config.types";
-import chalk from "chalk";
 import type { Locator } from "playwright";
 import { expect } from "playwright/test";
+import { createFlow } from "./create-flow";
 
-export default async function isVisibleFlow({
-	step: isVisibleStep,
-	page,
-}: BaseFlowParam<IsVisibleAction>): Promise<void> {
-	const isVisibleSpiner = spinner();
-
-	let targetLocator: Locator;
+function isVisisbleDescription(step: IsVisibleAction): string {
 	let targetDescription: `text: ${string}` | `selector: ${string}`;
-
-	if (typeof isVisibleStep.isVisible === "string") {
-		targetLocator = page.getByText(isVisibleStep.isVisible).first();
-		targetDescription = `text: ${isVisibleStep.isVisible}`;
+	if (typeof step.isVisible === "string") {
+		targetDescription = `text: ${step.isVisible}`;
 	} else {
-		targetLocator = page.locator(isVisibleStep.isVisible.selector);
-		targetDescription = `selector: ${isVisibleStep.isVisible.selector}`;
+		targetDescription = `selector: ${step.isVisible.selector}`;
 	}
-
-	isVisibleSpiner.start(
-		`Checking visibility of element with ${targetDescription}`,
-	);
-
-	try {
-		await expect(targetLocator).toBeVisible();
-		isVisibleSpiner.stop(
-			`${chalk.green("✓")} Element is visible with ${targetDescription}`,
-		);
-	} catch {
-		isVisibleSpiner.stop(
-			`${chalk.red("✖")} isVisible: Element is not visible with ${targetDescription}`,
-		);
-		throw new FailedAssertionError(`Assertion failed: ${targetDescription}`);
-	}
+	return targetDescription;
 }
+
+function isVisibleLocator({
+	page,
+	step,
+}: BaseFlowParam<IsVisibleAction>): Locator {
+	let targetLocator: Locator;
+
+	if (typeof step.isVisible === "string") {
+		targetLocator = page.getByText(step.isVisible).first();
+	} else {
+		targetLocator = page.locator(step.isVisible.selector);
+	}
+
+	return targetLocator;
+}
+
+const isVisibleFlow = createFlow<IsVisibleAction>({
+	action: "isVisible",
+	setLoadingMessage(step) {
+		const targetDescription = isVisisbleDescription(step);
+		return `Checking visibility of element with ${targetDescription}`;
+	},
+	async execute(params) {
+		const targetLocator = isVisibleLocator(params);
+		await expect(targetLocator).toBeVisible();
+	},
+	getSuccessMessage(step) {
+		const targetDescription = isVisisbleDescription(step);
+		return ` Element is visible with ${targetDescription}`;
+	},
+	getErrorMessage(step) {
+		const targetDescription = isVisisbleDescription(step);
+		return `isVisible: Element is not visible with ${targetDescription}`;
+	},
+	onError(_, step) {
+		const targetDescription = isVisisbleDescription(step);
+		throw new FailedAssertionError(`Assertion failed: ${targetDescription}`);
+	},
+});
+
+export default isVisibleFlow;
