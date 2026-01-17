@@ -1,5 +1,6 @@
 export { default as clickonFlow } from "./clickon-flow";
 export { default as inputFlow } from "./input-flow";
+export { default as isDisabledFlow } from "./is-disabled-flow";
 export { default as isNotVisibleFlow } from "./is-not-visible-flow";
 export { default as isTitleFlow } from "./istitle-flow";
 export { default as isURLFlow } from "./isurl-flow";

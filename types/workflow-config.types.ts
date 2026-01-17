@@ -121,6 +121,17 @@ export const IsNotVisibleSchema = z
 	})
 	.meta(jsonSchemaMeta.flow.isNotVisible.description);
 
+export const IsDisabledSchema = z
+	.object({
+		isDisabled: z.union([
+			z.string().meta(jsonSchemaMeta.flow.isDisabled.string),
+			z.object({
+				selector: z.string().meta(jsonSchemaMeta.flow.isDisabled.selector),
+			}),
+		]),
+	})
+	.meta(jsonSchemaMeta.flow.isDisabled.description);
+
 export const FlowStepSchema = z.union([
 	InputActionSchema,
 	ClickActionSchema,
@@ -131,6 +142,7 @@ export const FlowStepSchema = z.union([
 	IsTitleActionSchema,
 	IsURLActionSchema,
 	IsNotVisibleSchema,
+	IsDisabledSchema,
 ]);
 
 export const WorkflowConfigSchema = z
@@ -162,3 +174,4 @@ export type IsVisibleAction = z.infer<typeof IsVisibleActionSchema>;
 export type IsTitleAction = z.infer<typeof IsTitleActionSchema>;
 export type IsURLAction = z.infer<typeof IsURLActionSchema>;
 export type IsNotVisibleAction = z.infer<typeof IsNotVisibleSchema>;
+export type IsDisabledAction = z.infer<typeof IsDisabledSchema>;

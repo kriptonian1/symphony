@@ -265,6 +265,22 @@ const isNotVisibleSelectorMeta: Meta = {
 		'**CSS Selector** — `selector:` property  \nUses advanced CSS selector syntax to precisely target elements for non-visibility checks. Supports Playwright\'s extended CSS selectors including text matching, visibility filters, and pseudo-classes.\n\n**Standard CSS Selectors:**\n```yaml\n- isNotVisible:\n    selector: "#login-button"        # Check element by ID\n- isNotVisible:\n    selector: ".modal-header"        # Check element by class\n- isNotVisible:\n    selector: \'button[type="submit"]\' # Check by attribute\n```\n\n**Playwright Extended Selectors:**\n\n`:text("...")` — Match elements containing specific text\n```yaml\n- isNotVisible:\n    selector: \'h1:text("Latest Updates")\'  # Check h1 with exact text\n- isNotVisible:\n    selector: \'button:text("Sign Up")\'     # Check button containing text\n```\n\n`:has-text("...")` — Match elements with substring (case-insensitive)\n```yaml\n- isNotVisible:\n    selector: \'a:has-text("Get started"):visible\'  # Check visible link\n- isNotVisible:\n    selector: \'div:has-text("Error")\'              # Check div with "Error"\n```\n\n`:visible` — Filter to only visible elements\n```yaml\n- isNotVisible:\n    selector: \'button:visible\'           # Check if button is visible\n- isNotVisible:\n    selector: \'.notification:visible\'   # Check visible notification\n```\n\n`:has()` — Match elements containing specific descendants\n```yaml\n- isNotVisible:\n    selector: \'form:has(input[type="email"])\'  # Check form with email input\n```\n\n**Combining Selectors:**\n```yaml\n- isNotVisible:\n    selector: \'a:has-text("Get started"):visible\'  # Visible link with text\n- isNotVisible:\n    selector: \'div.card:has(h2:text("Title"))\'     # Card div with h2 title\n```\n\n**Common Use Cases:**\n```yaml\n# Check if success message is not displayed\n- isNotVisible:\n    selector: \'.alert-success:visible\'\n\n# Verify modal is not displayed\n- isNotVisible:\n    selector: \'#modal:has-text("Confirm")\'  \n\n# Check navigation link is not visible\n- isNotVisible:\n    selector: \'nav a:text("Dashboard"):visible\'\n\n# Verify error message is not visible\n- isNotVisible: "Error: Invalid credentials"\n```\n\n**Note:** The non-visibility check will wait for the element to become hidden (up to the default timeout) before failing, making it reliable for dynamic content that may take time to disappear.',
 };
 
+const isDisabledMeta: Meta = {
+	title: "IsDisabled Action",
+	description:
+		"Defines a disabled state check action that verifies whether an element is disabled on the page. Can target elements either by CSS selector or by visible text content.",
+};
+
+const isDisabledStringMeta: Meta = {
+	markdownDescription:
+		'**Text Content Locator** — Direct string  \nChecks disabled state of elements containing the specified visible text content. Takes the first matching element.\n\n**Usage:** `"Login"`, `"Submit"`, `"padding"`\n\n**Example:**\n```yaml\n- isDisabled: "Get started"  # Check if element with text "Get started" is disabled',
+};
+
+const isDisabledSelectorMeta: Meta = {
+	markdownDescription:
+		'**CSS Selector** — `selector:` property  \nUses advanced CSS selector syntax to precisely target elements for disabled state checks. Supports Playwright\'s extended CSS selectors including text matching, visibility filters, and pseudo-classes.\n\n**Standard CSS Selectors:**\n```yaml\n- isDisabled:\n    selector: "#login-button"        # Check element by ID\n- isDisabled:\n    selector: ".modal-header"        # Check element by class\n- isDisabled:\n    selector: \'button[type="submit"]\' # Check by attribute\n```\n\n**Playwright Extended Selectors:**\n\n`:text("...")` — Match elements containing specific text\n```yaml\n- isDisabled:\n    selector: \'h1:text("Latest Updates")\'  # Check h1 with exact text\n- isDisabled:\n    selector: \'button:text("Sign Up")\'     # Check button containing text\n```\n\n`:has-text("...")` — Match elements with substring (case-insensitive)\n```yaml\n- isDisabled:\n    selector: \'a:has-text("Get started"):visible\'  # Check visible link\n- isDisabled:\n    selector: \'div:has-text("Error")\'              # Check div with "Error"\n```\n\n`:visible` — Filter to only visible elements\n```yaml\n- isDisabled:\n	selector: \'button:visible\'           # Check if button is visible\n- isDisabled:\n    selector: \'.notification:visible\'   # Check visible notification\n```\n\n`:has()` — Match elements containing specific descendants\n```yaml\n- isDisabled:\n    selector: \'form:has(input[type="email"])\'  # Check form with email input\n```\n\n**Combining Selectors:**\n```yaml\n- isDisabled:\n    selector: \'a:has-text("Get started"):visible\'  # Visible link with text\n- isDisabled:\n    selector: \'div.card:has(h2:text("Title"))\'     # Card div with h2 title\n```\n\n**Common Use Cases:**\n```yaml\n# Check if submit button is disabled\n- isDisabled:\n    selector: \'button[type="submit"]:visible\'\n\n# Verify modal action button is disabled\n- isDisabled:\n    selector: \'#modal button:has-text("Confirm")\'  \n\n# Check navigation link is disabled\n- isDisabled:\n    selector: \'nav a:text("Dashboard"):visible\'\n\n# Verify form field is disabled\n- isDisabled: "Email Address"\n```\n\n**Note:** The disabled state check will wait for the element to become disabled (up to the default timeout) before failing, making it reliable for dynamic content that may take time to change state.',
+};
+
 /**
  * Descriptions for JSON schema properties used in Zod schemas.
  */
@@ -319,6 +335,11 @@ export const jsonSchemaMeta = {
 			description: isNotVisibleMeta,
 			string: isNotVisibleStringMeta,
 			selector: isNotVisibleSelectorMeta,
+		},
+		isDisabled: {
+			description: isDisabledMeta,
+			string: isDisabledStringMeta,
+			selector: isDisabledSelectorMeta,
 		},
 	},
 };
