@@ -17,14 +17,14 @@ const isURLFlow = createFlow<IsURLAction>({
 		await expect(page).toHaveURL(titleOrRegex);
 	},
 
-	getSuccessMessage(step) {
+	setSuccessMessage(step) {
 		const { isRegex, value: titleOrRegex } = regexOrStringMaker(step.isURL);
 		const LocatorDescription = isRegex ? "Regex:" : "URL:";
 
 		return `Page URL is visible with ${LocatorDescription} "${titleOrRegex}"`;
 	},
 
-	getErrorMessage(step) {
+	setErrorMessage(step) {
 		const { isRegex, value: titleOrRegex } = regexOrStringMaker(step.isURL);
 		const LocatorDescription = isRegex ? "Regex:" : "URL:";
 		return `isURL: Page URL is not visible with ${LocatorDescription} "${titleOrRegex}"`;

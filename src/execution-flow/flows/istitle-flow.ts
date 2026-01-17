@@ -14,12 +14,12 @@ const isTitleFlow = createFlow<IsTitleAction>({
 		const { value: titleOrRegex } = regexOrStringMaker(step.isTitle);
 		return `Checking visibility of page title ${titleOrRegex}`;
 	},
-	getSuccessMessage(step) {
+	setSuccessMessage(step) {
 		const { isRegex, value: titleOrRegex } = regexOrStringMaker(step.isTitle);
 		const LocatorDescription = isRegex ? "Regex:" : "Text:";
 		return `Page title is visible with ${LocatorDescription} "${titleOrRegex}"`;
 	},
-	getErrorMessage(step) {
+	setErrorMessage(step) {
 		const { isRegex, value: titleOrRegex } = regexOrStringMaker(step.isTitle);
 		const LocatorDescription = isRegex ? "Regex:" : "Text:";
 		return `isTitle: Page title is not visible with ${LocatorDescription} "${titleOrRegex}"`;

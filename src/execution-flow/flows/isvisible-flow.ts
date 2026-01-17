@@ -40,11 +40,11 @@ const isVisibleFlow = createFlow<IsVisibleAction>({
 		const targetLocator = isVisibleLocator(params);
 		await expect(targetLocator).toBeVisible();
 	},
-	getSuccessMessage(step) {
+	setSuccessMessage(step) {
 		const targetDescription = isVisisbleDescription(step);
 		return ` Element is visible with ${targetDescription}`;
 	},
-	getErrorMessage(step) {
+	setErrorMessage(step) {
 		const targetDescription = isVisisbleDescription(step);
 		return `isVisible: Element is not visible with ${targetDescription}`;
 	},

@@ -41,11 +41,11 @@ const isDisabledFlow = createFlow<IsDisabledAction>({
 		const targetLocator = isDisabledLocator(params);
 		await expect(targetLocator).toBeDisabled();
 	},
-	getSuccessMessage(step) {
+	setSuccessMessage(step) {
 		const targetDescription = isDisableDescription(step);
 		return `Element is disabled with ${targetDescription}`;
 	},
-	getErrorMessage(step) {
+	setErrorMessage(step) {
 		const targetDescription = isDisableDescription(step);
 		return `isDisabled: Element is not disabled with ${targetDescription}`;
 	},

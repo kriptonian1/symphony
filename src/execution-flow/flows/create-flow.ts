@@ -18,19 +18,19 @@ export interface FlowConfig<T extends FlowStep> {
 	onError?: (error: unknown, step: T) => Error;
 
 	/** Custom error message for stop spinner (defaults to getMessage) */
-	getErrorMessage?: (step: T) => string;
+	setErrorMessage?: (step: T) => string;
 
 	/** Custom success message for stop spinner (defaults to getMessage) */
-	getSuccessMessage?: (step: T) => string;
+	setSuccessMessage?: (step: T) => string;
 }
 
 export function createFlow<T extends FlowStep>({
 	action,
 	execute,
 	setLoadingMessage: getMessage,
-	getSuccessMessage,
+	setSuccessMessage: getSuccessMessage,
 	onError,
-	getErrorMessage,
+	setErrorMessage: getErrorMessage,
 }: FlowConfig<T>) {
 	return async ({ page, step }: BaseFlowParam<T>): Promise<void> => {
 		const flowSpinner = spinner();

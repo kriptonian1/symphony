@@ -40,12 +40,12 @@ const clickOnFlow = createFlow<ClickAction>({
 		await targetLocator.click();
 	},
 
-	getSuccessMessage: (step) => {
+	setSuccessMessage: (step) => {
 		const targetDescription = clickOnDescription(step);
 		return `Clicked on element with ${targetDescription}`;
 	},
 
-	getErrorMessage: (step) => {
+	setErrorMessage: (step) => {
 		const targetDescription = clickOnDescription(step);
 		return `clickOn: Unable to find element with ${targetDescription}`;
 	},
