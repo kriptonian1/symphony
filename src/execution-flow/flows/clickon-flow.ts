@@ -16,7 +16,19 @@ function clickOnDescription({
 	return targetDescription;
 }
 
-export default createFlow<ClickAction>({
+function clickOnLocator({ page, step }: BaseFlowParam<ClickAction>): Locator {
+	let targetLocator: Locator;
+
+	if (typeof step.clickOn === "string") {
+		targetLocator = page.getByText(step.clickOn).first();
+	} else {
+		targetLocator = page.locator(step.clickOn.selector);
+	}
+
+	return targetLocator;
+}
+
+const clickOnFlow = createFlow<ClickAction>({
 	action: "clickOn",
 
 	getMessage: (step) => {
@@ -24,14 +36,8 @@ export default createFlow<ClickAction>({
 		return `Clicking on element with ${targetDescription}`;
 	},
 
-	execute: async ({ step: clickOnStep, page }) => {
-		let targetLocator: Locator;
-
-		if (typeof clickOnStep.clickOn === "string") {
-			targetLocator = page.getByText(clickOnStep.clickOn).first();
-		} else {
-			targetLocator = page.locator(clickOnStep.clickOn.selector);
-		}
+	execute: async (params) => {
+		const targetLocator = clickOnLocator(params);
 
 		await targetLocator.click();
 	},
@@ -51,3 +57,5 @@ export default createFlow<ClickAction>({
 		throw new ElementNotFoundError(`Element missing: ${targetDescription}`);
 	},
 });
+
+export default clickOnFlow;
