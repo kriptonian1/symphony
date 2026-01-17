@@ -378,6 +378,38 @@
               "isNotVisible"
             ],
             "additionalProperties": false
+          },
+          {
+            "title": "IsDisabled Action",
+            "description": "Defines a disabled state check action that verifies whether an element is disabled on the page. Can target elements either by CSS selector or by visible text content.",
+            "type": "object",
+            "properties": {
+              "isDisabled": {
+                "anyOf": [
+                  {
+                    "markdownDescription": "**Text Content Locator** — Direct string  \nChecks disabled state of elements containing the specified visible text content. Takes the first matching element.\n\n**Usage:** `\"Login\"`, `\"Submit\"`, `\"padding\"`\n\n**Example:**\n```yaml\n- isDisabled: \"Get started\"  # Check if element with text \"Get started\" is disabled",
+                    "type": "string"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "selector": {
+                        "markdownDescription": "**CSS Selector** — `selector:` property  \nUses advanced CSS selector syntax to precisely target elements for disabled state checks. Supports Playwright's extended CSS selectors including text matching, visibility filters, and pseudo-classes.\n\n**Standard CSS Selectors:**\n```yaml\n- isDisabled:\n    selector: \"#login-button\"        # Check element by ID\n- isDisabled:\n    selector: \".modal-header\"        # Check element by class\n- isDisabled:\n    selector: 'button[type=\"submit\"]' # Check by attribute\n```\n\n**Playwright Extended Selectors:**\n\n`:text(\"...\")` — Match elements containing specific text\n```yaml\n- isDisabled:\n    selector: 'h1:text(\"Latest Updates\")'  # Check h1 with exact text\n- isDisabled:\n    selector: 'button:text(\"Sign Up\")'     # Check button containing text\n```\n\n`:has-text(\"...\")` — Match elements with substring (case-insensitive)\n```yaml\n- isDisabled:\n    selector: 'a:has-text(\"Get started\"):visible'  # Check visible link\n- isDisabled:\n    selector: 'div:has-text(\"Error\")'              # Check div with \"Error\"\n```\n\n`:visible` — Filter to only visible elements\n```yaml\n- isDisabled:\n\tselector: 'button:visible'           # Check if button is visible\n- isDisabled:\n    selector: '.notification:visible'   # Check visible notification\n```\n\n`:has()` — Match elements containing specific descendants\n```yaml\n- isDisabled:\n    selector: 'form:has(input[type=\"email\"])'  # Check form with email input\n```\n\n**Combining Selectors:**\n```yaml\n- isDisabled:\n    selector: 'a:has-text(\"Get started\"):visible'  # Visible link with text\n- isDisabled:\n    selector: 'div.card:has(h2:text(\"Title\"))'     # Card div with h2 title\n```\n\n**Common Use Cases:**\n```yaml\n# Check if submit button is disabled\n- isDisabled:\n    selector: 'button[type=\"submit\"]:visible'\n\n# Verify modal action button is disabled\n- isDisabled:\n    selector: '#modal button:has-text(\"Confirm\")'  \n\n# Check navigation link is disabled\n- isDisabled:\n    selector: 'nav a:text(\"Dashboard\"):visible'\n\n# Verify form field is disabled\n- isDisabled: \"Email Address\"\n```\n\n**Note:** The disabled state check will wait for the element to become disabled (up to the default timeout) before failing, making it reliable for dynamic content that may take time to change state.",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "selector"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              }
+            },
+            "required": [
+              "isDisabled"
+            ],
+            "additionalProperties": false
           }
         ]
       }
