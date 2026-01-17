@@ -4,9 +4,7 @@ import type { ClickAction } from "@type/workflow-config.types";
 import type { Locator } from "playwright";
 import { createFlow } from "./create-flow";
 
-function clickOnDescription({
-	step,
-}: Pick<BaseFlowParam<ClickAction>, "step">) {
+function clickOnDescription(step: ClickAction) {
 	let targetDescription: `text: ${string}` | `selector: ${string}`;
 	if (typeof step.clickOn === "string") {
 		targetDescription = `text: ${step.clickOn}`;
@@ -32,7 +30,7 @@ const clickOnFlow = createFlow<ClickAction>({
 	action: "clickOn",
 
 	getMessage: (step) => {
-		const targetDescription = clickOnDescription({ step });
+		const targetDescription = clickOnDescription(step);
 		return `Clicking on element with ${targetDescription}`;
 	},
 
@@ -43,17 +41,17 @@ const clickOnFlow = createFlow<ClickAction>({
 	},
 
 	getSuccessMessage: (step) => {
-		const targetDescription = clickOnDescription({ step });
+		const targetDescription = clickOnDescription(step);
 		return `Clicked on element with ${targetDescription}`;
 	},
 
 	getErrorMessage: (step) => {
-		const targetDescription = clickOnDescription({ step });
+		const targetDescription = clickOnDescription(step);
 		return `clickOn: Unable to find element with ${targetDescription}`;
 	},
 
 	onError: (_, step) => {
-		const targetDescription = clickOnDescription({ step });
+		const targetDescription = clickOnDescription(step);
 		throw new ElementNotFoundError(`Element missing: ${targetDescription}`);
 	},
 });

@@ -1,40 +1,58 @@
-import { spinner } from "@clack/prompts";
 import { FailedAssertionError } from "@src/errors/workflow-error";
 import type { BaseFlowParam } from "@type/base-flow.types";
 import type { IsDisabledAction } from "@type/workflow-config.types";
-import chalk from "chalk";
 import type { Locator } from "playwright";
 import { expect } from "playwright/test";
+import { createFlow } from "./create-flow";
 
-export default async function isDisabledFlow({
-	step: isDisabledStep,
-	page,
-}: BaseFlowParam<IsDisabledAction>): Promise<void> {
-	const isDisabledSpinner = spinner();
-	let targetLocator: Locator;
+function isDisableDescription(step: IsDisabledAction): string {
 	let targetDescription: `text: ${string}` | `selector: ${string}`;
 
-	if (typeof isDisabledStep.isDisabled === "string") {
-		targetLocator = page.getByText(isDisabledStep.isDisabled).first();
-		targetDescription = `text: ${isDisabledStep.isDisabled}`;
+	if (typeof step.isDisabled === "string") {
+		targetDescription = `text: ${step.isDisabled}`;
 	} else {
-		targetLocator = page.locator(isDisabledStep.isDisabled.selector);
-		targetDescription = `selector: ${isDisabledStep.isDisabled.selector}`;
+		targetDescription = `selector: ${step.isDisabled.selector}`;
 	}
-
-	isDisabledSpinner.start(
-		`Checking visibility of element with ${targetDescription}`,
-	);
-
-	try {
-		await expect(targetLocator).toBeDisabled();
-		isDisabledSpinner.stop(
-			`${chalk.green("✓")} Element is disabled with ${targetDescription}`,
-		);
-	} catch {
-		isDisabledSpinner.stop(
-			`${chalk.red("✖")} isDisabled: Element is not disabled with ${targetDescription}`,
-		);
-		throw new FailedAssertionError(`Assertion failed: ${targetDescription}`);
-	}
+	return targetDescription;
 }
+
+function isDisabledLocator({
+	page,
+	step,
+}: BaseFlowParam<IsDisabledAction>): Locator {
+	let targetLocator: Locator;
+
+	if (typeof step.isDisabled === "string") {
+		targetLocator = page.getByText(step.isDisabled).first();
+	} else {
+		targetLocator = page.locator(step.isDisabled.selector);
+	}
+
+	return targetLocator;
+}
+
+const isDisabledFlow = createFlow<IsDisabledAction>({
+	action: "isDisabled",
+	getMessage(step) {
+		const targetDescription = isDisableDescription(step);
+		return `Checking visibility of element with ${targetDescription}`;
+	},
+	async execute(params) {
+		const targetLocator = isDisabledLocator(params);
+		await expect(targetLocator).toBeDisabled();
+	},
+	getSuccessMessage(step) {
+		const targetDescription = isDisableDescription(step);
+		return `Element is disabled with ${targetDescription}`;
+	},
+	getErrorMessage(step) {
+		const targetDescription = isDisableDescription(step);
+		return `isDisabled: Element is not disabled with ${targetDescription}`;
+	},
+	onError(_, step) {
+		const targetDescription = isDisableDescription(step);
+		throw new FailedAssertionError(`Assertion failed: ${targetDescription}`);
+	},
+});
+
+export default isDisabledFlow;
