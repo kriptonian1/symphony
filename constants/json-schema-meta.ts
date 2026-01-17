@@ -249,6 +249,22 @@ const isURLTitleOrRegexMeta: Meta = {
 		'Expected page URL as a string or regular expression.\n\n**Usage**  \nChecks if the current page URL matches the specified string exactly or matches the provided regular expression pattern.\n\n**Examples**\n- `"https://example.com/home"` — Checks for exact URL match\n- `/^https:\\/\\/example\\.com\\/user\\/\\d+$/` — Checks if URL matches regex pattern\n\n**Common Use Cases**\n```yaml\n- isURL: "https://example.com/dashboard"          # Exact URL match\n```\n\n```yaml\n- isURL: /^https:\\/\\/example\\.com\\/profile\\/\\w+$/    # Regex URL match\n```',
 };
 
+const isNotVisibleMeta: Meta = {
+	title: "IsNotVisible Action",
+	description:
+		"Defines a non-visibility check action that verifies whether an element is not visible on the page. Can target elements either by CSS selector or by visible text content.",
+};
+
+const isNotVisibleStringMeta: Meta = {
+	markdownDescription:
+		'**Text Content Locator** — Direct string  \nChecks non-visibility of elements containing the specified visible text content. Takes the first matching element.\n\n**Usage:** `"Login"`, `"Submit"`, `"padding"`\n\n**Example:**\n```yaml\n- isNotVisible: "Get started"  # Check if element with text "Get started" is not visible',
+};
+
+const isNotVisibleSelectorMeta: Meta = {
+	markdownDescription:
+		'**CSS Selector** — `selector:` property  \nUses advanced CSS selector syntax to precisely target elements for non-visibility checks. Supports Playwright\'s extended CSS selectors including text matching, visibility filters, and pseudo-classes.\n\n**Standard CSS Selectors:**\n```yaml\n- isNotVisible:\n    selector: "#login-button"        # Check element by ID\n- isNotVisible:\n    selector: ".modal-header"        # Check element by class\n- isNotVisible:\n    selector: \'button[type="submit"]\' # Check by attribute\n```\n\n**Playwright Extended Selectors:**\n\n`:text("...")` — Match elements containing specific text\n```yaml\n- isNotVisible:\n    selector: \'h1:text("Latest Updates")\'  # Check h1 with exact text\n- isNotVisible:\n    selector: \'button:text("Sign Up")\'     # Check button containing text\n```\n\n`:has-text("...")` — Match elements with substring (case-insensitive)\n```yaml\n- isNotVisible:\n    selector: \'a:has-text("Get started"):visible\'  # Check visible link\n- isNotVisible:\n    selector: \'div:has-text("Error")\'              # Check div with "Error"\n```\n\n`:visible` — Filter to only visible elements\n```yaml\n- isNotVisible:\n    selector: \'button:visible\'           # Check if button is visible\n- isNotVisible:\n    selector: \'.notification:visible\'   # Check visible notification\n```\n\n`:has()` — Match elements containing specific descendants\n```yaml\n- isNotVisible:\n    selector: \'form:has(input[type="email"])\'  # Check form with email input\n```\n\n**Combining Selectors:**\n```yaml\n- isNotVisible:\n    selector: \'a:has-text("Get started"):visible\'  # Visible link with text\n- isNotVisible:\n    selector: \'div.card:has(h2:text("Title"))\'     # Card div with h2 title\n```\n\n**Common Use Cases:**\n```yaml\n# Check if success message is not displayed\n- isNotVisible:\n    selector: \'.alert-success:visible\'\n\n# Verify modal is not displayed\n- isNotVisible:\n    selector: \'#modal:has-text("Confirm")\'  \n\n# Check navigation link is not visible\n- isNotVisible:\n    selector: \'nav a:text("Dashboard"):visible\'\n\n# Verify error message is not visible\n- isNotVisible: "Error: Invalid credentials"\n```\n\n**Note:** The non-visibility check will wait for the element to become hidden (up to the default timeout) before failing, making it reliable for dynamic content that may take time to disappear.',
+};
+
 /**
  * Descriptions for JSON schema properties used in Zod schemas.
  */
@@ -298,6 +314,11 @@ export const jsonSchemaMeta = {
 		isURL: {
 			description: isURLMeta,
 			titleOrRegex: isURLTitleOrRegexMeta,
+		},
+		isNotVisible: {
+			description: isNotVisibleMeta,
+			string: isNotVisibleStringMeta,
+			selector: isNotVisibleSelectorMeta,
 		},
 	},
 };

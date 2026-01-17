@@ -1,6 +1,7 @@
 import {
 	clickonFlow,
 	inputFlow,
+	isNotVisibleFlow,
 	isTitleFlow,
 	isURLFlow,
 	isVisibleFlow,
@@ -26,4 +27,5 @@ export const flowRegistry: Record<StepKeys, FlowFunction> = {
 	isVisible: isVisibleFlow,
 	isTitle: isTitleFlow,
 	isURL: isURLFlow,
+	isNotVisible: isNotVisibleFlow,
 };

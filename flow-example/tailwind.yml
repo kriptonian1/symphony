@@ -9,6 +9,7 @@ flow:
           speed: 100
     - isVisible: 
             selector: a:has-text("Get started"):visible
+    - isNotVisible: Dosen't existing element
     - isTitle: "Tailwind CSS - Rapidly build modern websites without ever leaving your HTML."
     - waitFor:
           duration: 3000
