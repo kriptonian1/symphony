@@ -17,10 +17,10 @@ export interface FlowConfig<T extends FlowStep> {
 	/** Custom error handler */
 	onError?: (error: unknown, step: T) => Error;
 
-	/** Custom error message (defaults to getMessage) */
+	/** Custom error message for stop spinner (defaults to getMessage) */
 	getErrorMessage?: (step: T) => string;
 
-	/** Custom success message (defaults to getMessage) */
+	/** Custom success message for stop spinner (defaults to getMessage) */
 	getSuccessMessage?: (step: T) => string;
 }
 
