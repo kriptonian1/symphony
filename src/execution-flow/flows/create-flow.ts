@@ -9,7 +9,7 @@ export interface FlowConfig<T extends FlowStep> {
 	action: StepKeys;
 
 	/** Generate descriptive message for spinner */
-	getMessage: (step: T) => string;
+	setLoadingMessage: (step: T) => string;
 
 	/** Core execution logic */
 	execute: (params: BaseFlowParam<T>) => Promise<void>;
@@ -27,7 +27,7 @@ export interface FlowConfig<T extends FlowStep> {
 export function createFlow<T extends FlowStep>({
 	action,
 	execute,
-	getMessage,
+	setLoadingMessage: getMessage,
 	getSuccessMessage,
 	onError,
 	getErrorMessage,

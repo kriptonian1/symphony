@@ -29,7 +29,7 @@ function clickOnLocator({ page, step }: BaseFlowParam<ClickAction>): Locator {
 const clickOnFlow = createFlow<ClickAction>({
 	action: "clickOn",
 
-	getMessage: (step) => {
+	setLoadingMessage: (step) => {
 		const targetDescription = clickOnDescription(step);
 		return `Clicking on element with ${targetDescription}`;
 	},

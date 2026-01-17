@@ -7,7 +7,7 @@ import { createFlow } from "./create-flow";
 const isURLFlow = createFlow<IsURLAction>({
 	action: "isURL",
 
-	getMessage(step) {
+	setLoadingMessage(step) {
 		const { value: titleOrRegex } = regexOrStringMaker(step.isURL);
 		return `Checking visibility of page URL ${titleOrRegex}`;
 	},

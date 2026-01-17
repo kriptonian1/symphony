@@ -33,7 +33,7 @@ function isDisabledLocator({
 
 const isDisabledFlow = createFlow<IsDisabledAction>({
 	action: "isDisabled",
-	getMessage(step) {
+	setLoadingMessage(step) {
 		const targetDescription = isDisableDescription(step);
 		return `Checking visibility of element with ${targetDescription}`;
 	},

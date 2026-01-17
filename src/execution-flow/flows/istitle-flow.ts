@@ -10,7 +10,7 @@ const isTitleFlow = createFlow<IsTitleAction>({
 		const { value: titleOrRegex } = regexOrStringMaker(step.isTitle);
 		await expect(page).toHaveTitle(titleOrRegex);
 	},
-	getMessage(step) {
+	setLoadingMessage(step) {
 		const { value: titleOrRegex } = regexOrStringMaker(step.isTitle);
 		return `Checking visibility of page title ${titleOrRegex}`;
 	},
