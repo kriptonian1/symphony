@@ -27,7 +27,7 @@ const isURLFlow = createFlow<IsURLAction>({
 	setErrorMessage(step) {
 		const { isRegex, value: titleOrRegex } = regexOrStringMaker(step.isURL);
 		const LocatorDescription = isRegex ? "Regex:" : "URL:";
-		return `isURL: Page URL is not visible with ${LocatorDescription} "${titleOrRegex}"`;
+		return `isURL: Page URL does not match ${LocatorDescription} "${titleOrRegex}"`;
 	},
 
 	onError(_, step) {
