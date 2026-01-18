@@ -1,16 +1,17 @@
-import { spinner } from "@clack/prompts";
-import type { BaseFlowParam } from "@type/base-flow.types";
 import type { WaitForAction } from "@type/workflow-config.types";
-import chalk from "chalk";
+import { createFlow } from "./create-flow";
 
-export default async function waitforFlow({
-	step: waitforStep,
-	page,
-}: BaseFlowParam<WaitForAction>): Promise<void> {
-	const waitForSpinner = spinner();
-	waitForSpinner.start(`Waiting for: ${waitforStep.waitFor.duration}ms`);
-	await page.waitForTimeout(waitforStep.waitFor.duration);
-	waitForSpinner.stop(
-		`${chalk.green("✓")} Waited for: ${waitforStep.waitFor.duration}ms`,
-	);
-}
+const waitforFlow = createFlow<WaitForAction>({
+	action: "waitFor",
+	setLoadingMessage(step) {
+		return `Waiting for: ${step.waitFor.duration}ms`;
+	},
+	async execute({ step, page }) {
+		await page.waitForTimeout(step.waitFor.duration);
+	},
+	setSuccessMessage(step) {
+		return `Waited for: ${step.waitFor.duration}ms`;
+	},
+});
+
+export default waitforFlow;
