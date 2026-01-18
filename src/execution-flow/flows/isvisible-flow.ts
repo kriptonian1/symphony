@@ -5,7 +5,7 @@ import type { Locator } from "playwright";
 import { expect } from "playwright/test";
 import { createFlow } from "./create-flow";
 
-function isVisisbleDescription(step: IsVisibleAction): string {
+function isVisibleDescription(step: IsVisibleAction): string {
 	let targetDescription: `text: ${string}` | `selector: ${string}`;
 	if (typeof step.isVisible === "string") {
 		targetDescription = `text: ${step.isVisible}`;
@@ -33,7 +33,7 @@ function isVisibleLocator({
 const isVisibleFlow = createFlow<IsVisibleAction>({
 	action: "isVisible",
 	setLoadingMessage(step) {
-		const targetDescription = isVisisbleDescription(step);
+		const targetDescription = isVisibleDescription(step);
 		return `Checking visibility of element with ${targetDescription}`;
 	},
 	async execute(params) {
@@ -41,15 +41,15 @@ const isVisibleFlow = createFlow<IsVisibleAction>({
 		await expect(targetLocator).toBeVisible();
 	},
 	setSuccessMessage(step) {
-		const targetDescription = isVisisbleDescription(step);
+		const targetDescription = isVisibleDescription(step);
 		return ` Element is visible with ${targetDescription}`;
 	},
 	setErrorMessage(step) {
-		const targetDescription = isVisisbleDescription(step);
+		const targetDescription = isVisibleDescription(step);
 		return `isVisible: Element is not visible with ${targetDescription}`;
 	},
 	onError(_, step) {
-		const targetDescription = isVisisbleDescription(step);
+		const targetDescription = isVisibleDescription(step);
 		return new FailedAssertionError(`Assertion failed: ${targetDescription}`);
 	},
 });
