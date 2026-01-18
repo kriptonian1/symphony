@@ -32,7 +32,7 @@ const isURLFlow = createFlow<IsURLAction>({
 
 	onError(_, step) {
 		const { value: titleOrRegex } = regexOrStringMaker(step.isURL);
-		throw new FailedAssertionError(`Assertion failed: ${titleOrRegex}`);
+		return new FailedAssertionError(`Assertion failed: ${titleOrRegex}`);
 	},
 });
 

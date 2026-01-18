@@ -26,7 +26,7 @@ const isTitleFlow = createFlow<IsTitleAction>({
 	},
 	onError(_, step) {
 		const { value: titleOrRegex } = regexOrStringMaker(step.isTitle);
-		throw new FailedAssertionError(`Assertion failed: ${titleOrRegex}`);
+		return new FailedAssertionError(`Assertion failed: ${titleOrRegex}`);
 	},
 });
 export default isTitleFlow;

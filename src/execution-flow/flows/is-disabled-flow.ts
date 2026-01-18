@@ -51,7 +51,7 @@ const isDisabledFlow = createFlow<IsDisabledAction>({
 	},
 	onError(_, step) {
 		const targetDescription = isDisableDescription(step);
-		throw new FailedAssertionError(`Assertion failed: ${targetDescription}`);
+		return new FailedAssertionError(`Assertion failed: ${targetDescription}`);
 	},
 });
 

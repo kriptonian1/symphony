@@ -50,7 +50,7 @@ const isVisibleFlow = createFlow<IsVisibleAction>({
 	},
 	onError(_, step) {
 		const targetDescription = isVisisbleDescription(step);
-		throw new FailedAssertionError(`Assertion failed: ${targetDescription}`);
+		return new FailedAssertionError(`Assertion failed: ${targetDescription}`);
 	},
 });
 

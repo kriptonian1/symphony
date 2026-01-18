@@ -36,6 +36,6 @@ export default async function isNotVisibleFlow({
 		isNotVisibleSpiner.stop(
 			`${chalk.red("✖")} isNotVisible: Element is visible with ${targetDescription}`,
 		);
-		throw new FailedAssertionError(`Assertion failed: ${targetDescription}`);
+		return new FailedAssertionError(`Assertion failed: ${targetDescription}`);
 	}
 }

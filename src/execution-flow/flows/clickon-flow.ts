@@ -52,7 +52,7 @@ const clickOnFlow = createFlow<ClickAction>({
 
 	onError: (_, step) => {
 		const targetDescription = clickOnDescription(step);
-		throw new ElementNotFoundError(`Element missing: ${targetDescription}`);
+		return new ElementNotFoundError(`Element missing: ${targetDescription}`);
 	},
 });
 
